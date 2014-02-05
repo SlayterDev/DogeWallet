@@ -80,13 +80,53 @@
         [cell.contentView addSubview:button];
         [button addTarget:self action:@selector(scanCode:) forControlEvents:UIControlEventTouchUpInside];
         
-        amountField = [[UITextField alloc] initWithFrame:CGRectMake(100, -2, cell.bounds.size.width - 100 - button.bounds.size.width, 50)];
-        [cell.contentView addSubview:amountField];
+        addressField = [[UITextField alloc] initWithFrame:CGRectMake(100, -2, cell.bounds.size.width - 100 - button.bounds.size.width, 50)];
+        [cell.contentView addSubview:addressField];
+        addressField.inputAccessoryView = [self createAccessoryView];
+        addressField.keyboardAppearance = UIKeyboardAppearanceDark;
     } else {
         cell.textLabel.text = @"Amount";
+        
+        amountField = [[UITextField alloc] initWithFrame:CGRectMake(100, -2, cell.bounds.size.width - 100 - 15, 50)];
+        [cell.contentView addSubview:amountField];
+        amountField.keyboardType = UIKeyboardTypeDecimalPad;
+        amountField.textAlignment = NSTextAlignmentRight;
+        amountField.inputAccessoryView = [self createAccessoryView];
+        amountField.keyboardAppearance = UIKeyboardAppearanceDark;
     }
     
     return cell;
+}
+
+-(UIToolbar *) createAccessoryView {
+	UIToolbar *accessory = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    
+    accessory.tintColor = [UIColor darkGrayColor];
+	
+    UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(switchField:)];
+    UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithTitle:@"Prev" style:UIBarButtonItemStyleBordered target:self action:@selector(switchField:)];
+    
+	UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+	UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissKeyPad:)];
+	
+	accessory.items = @[prev, next, space, dismissButton];
+	[accessory sizeToFit];
+	
+	return accessory;
+}
+
+-(void) switchField:(id)sender {
+    if ([addressField isFirstResponder])
+        [amountField becomeFirstResponder];
+    else
+        [addressField becomeFirstResponder];
+}
+
+-(void) dismissKeyPad:(id)sender {
+	if ([addressField isFirstResponder])
+        [addressField resignFirstResponder];
+    else
+        [amountField resignFirstResponder];
 }
 
 -(void) scanCode:(id)sender {
@@ -107,7 +147,7 @@
     
     for (ZBarSymbol *object in results) {
         NSLog(@"From ZBAR: %@", object.data);
-        amountField.text = object.data;
+        addressField.text = object.data;
     }
 }
 
