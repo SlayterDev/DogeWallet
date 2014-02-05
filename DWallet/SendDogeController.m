@@ -168,7 +168,7 @@
 		return;
 	}
 	
-	NSString *message = [NSString stringWithFormat:@"Are you sure you want to send %@ to %@?", amountField.text, addressField.text];
+	NSString *message = [NSString stringWithFormat:@"Are you sure you want to send %@ Ð to %@?", amountField.text, addressField.text];
 	
 	confirmView = [[UIAlertView alloc] initWithTitle:@"Confirm" message:message delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Do it.", nil];
 	[confirmView show];

@@ -17,6 +17,10 @@
 		021944B418A294CD0044EC29 /* UIImage+MDQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 021944AC18A294CD0044EC29 /* UIImage+MDQRCode.m */; };
 		021944B818A2C3BA0044EC29 /* ServerAddView.m in Sources */ = {isa = PBXBuildFile; fileRef = 021944B718A2C3BA0044EC29 /* ServerAddView.m */; };
 		021944BB18A2C8390044EC29 /* BSFileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 021944BA18A2C8390044EC29 /* BSFileHelper.m */; };
+		02A9233018A2F953009D02E6 /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A9232F18A2F953009D02E6 /* TransactionCell.m */; };
+		02A9233318A3043B009D02E6 /* info-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A9233118A3043B009D02E6 /* info-25.png */; };
+		02A9233418A3043B009D02E6 /* info-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A9233218A3043B009D02E6 /* info-32.png */; };
+		02A9233718A304F7009D02E6 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A9233618A304F7009D02E6 /* InfoViewController.m */; };
 		02EE7B4A18A1F10E00174DAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7B4918A1F10E00174DAF /* Foundation.framework */; };
 		02EE7B4C18A1F10E00174DAF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7B4B18A1F10E00174DAF /* CoreGraphics.framework */; };
 		02EE7B4E18A1F10E00174DAF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7B4D18A1F10E00174DAF /* UIKit.framework */; };
@@ -79,6 +83,12 @@
 		021944B718A2C3BA0044EC29 /* ServerAddView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAddView.m; sourceTree = "<group>"; };
 		021944B918A2C8390044EC29 /* BSFileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSFileHelper.h; sourceTree = "<group>"; };
 		021944BA18A2C8390044EC29 /* BSFileHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSFileHelper.m; sourceTree = "<group>"; };
+		02A9232E18A2F953009D02E6 /* TransactionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCell.h; sourceTree = "<group>"; };
+		02A9232F18A2F953009D02E6 /* TransactionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCell.m; sourceTree = "<group>"; };
+		02A9233118A3043B009D02E6 /* info-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-25.png"; sourceTree = "<group>"; };
+		02A9233218A3043B009D02E6 /* info-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-32.png"; sourceTree = "<group>"; };
+		02A9233518A304F7009D02E6 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		02A9233618A304F7009D02E6 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		02EE7B4618A1F10E00174DAF /* DWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02EE7B4918A1F10E00174DAF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		02EE7B4B18A1F10E00174DAF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -200,6 +210,21 @@
 			name = QRGen;
 			sourceTree = "<group>";
 		};
+		02A9232D18A2F924009D02E6 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				02EE7B5E18A1F10E00174DAF /* ViewController.h */,
+				02EE7B5F18A1F10E00174DAF /* ViewController.m */,
+				02EE7BB618A1F80E00174DAF /* SendDogeController.h */,
+				02EE7BB718A1F80E00174DAF /* SendDogeController.m */,
+				021944B618A2C3BA0044EC29 /* ServerAddView.h */,
+				021944B718A2C3BA0044EC29 /* ServerAddView.m */,
+				02A9233518A304F7009D02E6 /* InfoViewController.h */,
+				02A9233618A304F7009D02E6 /* InfoViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		02EE7B3D18A1F10E00174DAF = {
 			isa = PBXGroup;
 			children = (
@@ -242,19 +267,18 @@
 			isa = PBXGroup;
 			children = (
 				02EE7BB918A2045F00174DAF /* qrcode.png */,
+				02A9233118A3043B009D02E6 /* info-25.png */,
+				02A9233218A3043B009D02E6 /* info-32.png */,
 				021944B518A294D20044EC29 /* QRGen */,
 				02EE7B8918A1F75800174DAF /* ZBarSDK */,
 				02EE7B5818A1F10E00174DAF /* AppDelegate.h */,
 				02EE7B5918A1F10E00174DAF /* AppDelegate.m */,
-				02EE7B5B18A1F10E00174DAF /* Main.storyboard */,
-				02EE7B5E18A1F10E00174DAF /* ViewController.h */,
-				02EE7B5F18A1F10E00174DAF /* ViewController.m */,
-				02EE7BB618A1F80E00174DAF /* SendDogeController.h */,
-				02EE7BB718A1F80E00174DAF /* SendDogeController.m */,
-				021944B618A2C3BA0044EC29 /* ServerAddView.h */,
-				021944B718A2C3BA0044EC29 /* ServerAddView.m */,
 				021944B918A2C8390044EC29 /* BSFileHelper.h */,
 				021944BA18A2C8390044EC29 /* BSFileHelper.m */,
+				02A9232E18A2F953009D02E6 /* TransactionCell.h */,
+				02A9232F18A2F953009D02E6 /* TransactionCell.m */,
+				02A9232D18A2F924009D02E6 /* ViewControllers */,
+				02EE7B5B18A1F10E00174DAF /* Main.storyboard */,
 				02EE7B6118A1F10E00174DAF /* Images.xcassets */,
 				02EE7B5018A1F10E00174DAF /* Supporting Files */,
 			);
@@ -431,6 +455,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				02EE7B6218A1F10E00174DAF /* Images.xcassets in Resources */,
+				02A9233318A3043B009D02E6 /* info-25.png in Resources */,
+				02A9233418A3043B009D02E6 /* info-32.png in Resources */,
 				02EE7B5418A1F10E00174DAF /* InfoPlist.strings in Resources */,
 				02EE7B5D18A1F10E00174DAF /* Main.storyboard in Resources */,
 				02EE7BBA18A2045F00174DAF /* qrcode.png in Resources */,
@@ -458,6 +484,7 @@
 			files = (
 				021944B418A294CD0044EC29 /* UIImage+MDQRCode.m in Sources */,
 				02EE7BB818A1F80E00174DAF /* SendDogeController.m in Sources */,
+				02A9233018A2F953009D02E6 /* TransactionCell.m in Sources */,
 				021944B818A2C3BA0044EC29 /* ServerAddView.m in Sources */,
 				021944B118A294CD0044EC29 /* qrspec.c in Sources */,
 				021944AD18A294CD0044EC29 /* bitstream.c in Sources */,
@@ -465,6 +492,7 @@
 				02EE7B6018A1F10E00174DAF /* ViewController.m in Sources */,
 				021944AE18A294CD0044EC29 /* mask.c in Sources */,
 				021944AF18A294CD0044EC29 /* qrencode.c in Sources */,
+				02A9233718A304F7009D02E6 /* InfoViewController.m in Sources */,
 				021944B018A294CD0044EC29 /* qrinput.c in Sources */,
 				021944BB18A2C8390044EC29 /* BSFileHelper.m in Sources */,
 				021944B318A294CD0044EC29 /* split.c in Sources */,

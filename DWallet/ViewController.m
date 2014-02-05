@@ -64,11 +64,14 @@
     
     UIBarButtonItem *sendBtn = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStyleBordered target:self action:@selector(showSendView:)];
     self.navigationItem.rightBarButtonItem = sendBtn;
-    
+	
+	UIBarButtonItem *infoBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"info-25.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(infoTapped:)];
+    self.navigationItem.leftBarButtonItem = infoBtn;
+	
     [self createTableView];
     [self createBalanceLabel];
 	
-	[self getBalanceAndTransactionsFromServer];
+	//[self getBalanceAndTransactionsFromServer];
 }
 
 -(NSString *) getServerPath {
@@ -94,6 +97,10 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 	
 	[self loadServerDetails];
+}
+
+-(void) infoTapped:(id)sender {
+	
 }
 
 -(void) loadServerDetails {
@@ -213,30 +220,46 @@
     return [transactions count];
 }
 
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	int conf = [[[transactions objectAtIndex:indexPath.row] objectForKey:@"confirmations"] intValue];
+	
+	if (conf < 3)
+		return 64.0f;
+	else
+		return 44.0f;
+}
+
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
 	if (cell == nil)
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+		cell = [[TransactionCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 	
-	cell.textLabel.text = [[transactions objectAtIndex:indexPath.row] objectForKey:@"address"];
 	float amount = [[[transactions objectAtIndex:indexPath.row] objectForKey:@"amount"] floatValue];
+	//cell.detailTextLabel.text = [[transactions objectAtIndex:indexPath.row] objectForKey:@"address"];
+	cell.addressLabel.text = (amount < 0) ? @"Sent Doge" : @"Recieved Doge";
 	
 	if (amount < 0) {
 		float fee = [[[transactions objectAtIndex:indexPath.row] objectForKey:@"fee"] floatValue];
-		if (fee < 0) // less than, because fees are also negative
-			cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f Ð + %.2f Ð fee", amount, fee];
-		else
-			cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f Ð", amount];
+		amount += fee;
+		/*if (fee < 0) // less than, because fees are also negative
+			cell.amountLabel.text = [NSString stringWithFormat:@"%.2f Ð + %.2f Ð fee", amount, fee];
+		else*/
+			cell.amountLabel.text = [NSString stringWithFormat:@"%.2f Ð", amount];
 	} else {
-		cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f Ð", amount];
+		cell.amountLabel.text = [NSString stringWithFormat:@"%.2f Ð", amount];
+	}
+	
+	int conf = [[[transactions objectAtIndex:indexPath.row] objectForKey:@"confirmations"] intValue];
+	if (conf < 3) {
+		cell.unconfirmedLabel.text = @"unconfirmed";
 	}
 	
 	if (amount > 0.0f)
-		cell.detailTextLabel.textColor = [UIColor greenColor];
+		cell.amountLabel.textColor = [UIColor colorWithRed:0.3013f green:0.5109f blue:0.1878f alpha:1.0f];
 	else
-		cell.detailTextLabel.textColor = [UIColor redColor];
+		cell.amountLabel.textColor = [UIColor redColor];
     
     return cell;
 }
