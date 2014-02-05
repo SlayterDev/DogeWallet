@@ -86,6 +86,15 @@
     [self presentViewController:reader animated:YES completion:nil];
 }
 
+-(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    id<NSFastEnumeration> results = [info objectForKey:ZBarReaderControllerResults];
+    
+    for (id object in results) {
+        NSLog(@"From ZBAR: %@", results);
+    }
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
