@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <NMSSH/NMSSH.h>
 #import "SendDogeController.h"
 
-@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+	NSMutableArray *transactions;
+}
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UILabel *balanceLabel;
+
+@property (nonatomic, strong) NMSSHSession *ssh;
 
 @end
