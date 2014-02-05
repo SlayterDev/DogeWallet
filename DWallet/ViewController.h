@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SendDogeController.h"
 
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

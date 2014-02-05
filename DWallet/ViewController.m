@@ -21,6 +21,9 @@
     
     self.navigationItem.title = @"My Wallet";
     
+    UIBarButtonItem *sendBtn = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStyleBordered target:self action:@selector(showSendView:)];
+    self.navigationItem.rightBarButtonItem = sendBtn;
+    
     [self createTableView];
     [self createBalanceLabel];
 }
@@ -42,8 +45,16 @@
     
     self.balanceLabel.font = [UIFont systemFontOfSize:36.0f];
     
-    self.balanceLabel.text = @"0.00000000 D";
+    self.balanceLabel.text = @"0.00000000 Ð";
     [self.view addSubview:self.balanceLabel];
+}
+
+-(void) showSendView:(id)sender {
+    SendDogeController *controller = [[SendDogeController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+    
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
