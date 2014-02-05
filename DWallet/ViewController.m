@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 @implementation NSArray (Reverse)
 
 - (NSArray *)reversedArray {
@@ -100,7 +102,7 @@
 }
 
 -(void) createTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 154.0f, self.view.bounds.size.width, self.view.bounds.size.height - 154.0f) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 154.0f, self.view.bounds.size.width, self.view.bounds.size.height - 218.0f) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
@@ -115,6 +117,10 @@
     self.balanceLabel.center = self.view.center;
     CGRect labelFrame = self.balanceLabel.frame;
     labelFrame.origin.y -= 225.0f;
+	
+	if (!IS_IPHONE_5)
+		labelFrame.origin.y += 50.0f;
+	
     [self.balanceLabel setFrame:labelFrame];
     self.balanceLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -156,6 +162,11 @@
 	
 	QRView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 320.0f)];
 	QRView.center = self.view.center;
+	
+	CGPoint newCenter = QRView.center;
+	newCenter.y -= 60.0f;
+	QRView.center = newCenter;
+	
 	QRView.image = qr;
 	QRView.backgroundColor = [UIColor whiteColor];
 	
