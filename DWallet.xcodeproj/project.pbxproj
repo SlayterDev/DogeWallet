@@ -21,6 +21,9 @@
 		02EE7B6B18A1F10E00174DAF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7B4D18A1F10E00174DAF /* UIKit.framework */; };
 		02EE7B7318A1F10E00174DAF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02EE7B7118A1F10E00174DAF /* InfoPlist.strings */; };
 		02EE7B7518A1F10E00174DAF /* DWalletTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EE7B7418A1F10E00174DAF /* DWalletTests.m */; };
+		02EE7B7F18A1F12600174DAF /* NMSSH.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7B7E18A1F12600174DAF /* NMSSH.framework */; };
+		02EE7B8118A1F13A00174DAF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7B8018A1F13A00174DAF /* libz.dylib */; };
+		02EE7B8318A1F14000174DAF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7B8218A1F14000174DAF /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		02EE7B7018A1F10E00174DAF /* DWalletTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DWalletTests-Info.plist"; sourceTree = "<group>"; };
 		02EE7B7218A1F10E00174DAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		02EE7B7418A1F10E00174DAF /* DWalletTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DWalletTests.m; sourceTree = "<group>"; };
+		02EE7B7E18A1F12600174DAF /* NMSSH.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NMSSH.framework; sourceTree = "<group>"; };
+		02EE7B8018A1F13A00174DAF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		02EE7B8218A1F14000174DAF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02EE7B8318A1F14000174DAF /* CFNetwork.framework in Frameworks */,
+				02EE7B8118A1F13A00174DAF /* libz.dylib in Frameworks */,
+				02EE7B7F18A1F12600174DAF /* NMSSH.framework in Frameworks */,
 				02EE7B4C18A1F10E00174DAF /* CoreGraphics.framework in Frameworks */,
 				02EE7B4E18A1F10E00174DAF /* UIKit.framework in Frameworks */,
 				02EE7B4A18A1F10E00174DAF /* Foundation.framework in Frameworks */,
@@ -101,6 +110,9 @@
 		02EE7B4818A1F10E00174DAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				02EE7B8218A1F14000174DAF /* CFNetwork.framework */,
+				02EE7B8018A1F13A00174DAF /* libz.dylib */,
+				02EE7B7E18A1F12600174DAF /* NMSSH.framework */,
 				02EE7B4918A1F10E00174DAF /* Foundation.framework */,
 				02EE7B4B18A1F10E00174DAF /* CoreGraphics.framework */,
 				02EE7B4D18A1F10E00174DAF /* UIKit.framework */,
@@ -378,6 +390,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/slayter/Dropbox/iOS\\ Projects/DWallet",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DWallet/DWallet-Prefix.pch";
 				INFOPLIST_FILE = "DWallet/DWallet-Info.plist";
@@ -391,6 +407,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/slayter/Dropbox/iOS\\ Projects/DWallet",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DWallet/DWallet-Prefix.pch";
 				INFOPLIST_FILE = "DWallet/DWallet-Info.plist";
