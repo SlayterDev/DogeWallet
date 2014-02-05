@@ -19,6 +19,8 @@
 	UIAlertView *addressAlert;
 	
 	UIImageView *QRView;
+	
+	NSDictionary *server;
 }
 
 @property (nonatomic, strong) UITableView *tableView;

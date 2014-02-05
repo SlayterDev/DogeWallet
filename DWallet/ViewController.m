@@ -50,9 +50,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-	NSString *path = [NSString stringWithFormat:@"%@/server.plist", [[BSFileHelper sharedHelper] getDocumentsDirectory]];
+	NSString *path = [self getServerPath];
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NO]) {
 		[self showServerView];
+	} else {
+		[self loadServerDetails];
 	}
 	
     self.navigationItem.title = @"My Wallet";
@@ -64,6 +66,10 @@
     [self createBalanceLabel];
 	
 	[self getBalanceAndTransactionsFromServer];
+}
+
+-(NSString *) getServerPath {
+	return [NSString stringWithFormat:@"%@/server.plist", [[BSFileHelper sharedHelper] getDocumentsDirectory]];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -84,7 +90,12 @@
 -(void) serverViewDidClose:(ServerAddView *)serverAddController {
 	[self dismissViewControllerAnimated:YES completion:nil];
 	
-	
+	[self loadServerDetails];
+}
+
+-(void) loadServerDetails {
+	NSString *path = [self getServerPath];
+	server = [[NSDictionary alloc] initWithContentsOfFile:path];
 }
 
 -(void) createTableView {
@@ -214,10 +225,18 @@
 #pragma mark - Data Fetching
 
 -(void) getBalanceAndTransactionsFromServer {
-	self.ssh = [NMSSHSession connectToHost:@"69.90.132.160" withUsername:@"dogecoin"];
+	if (!server)
+		return;
+	
+	NSString *host = [server objectForKey:@"host"];
+	NSString *user = [server objectForKey:@"user"];
+	NSString *pass = [server objectForKey:@"pass"];
+	NSString *path = [server objectForKey:@"path"];
+	
+	self.ssh = [NMSSHSession connectToHost:host	withUsername:user];
 	
 	if (self.ssh.isConnected) {
-		[self.ssh authenticateByPassword:@"mixmaster1"];
+		[self.ssh authenticateByPassword:pass];
 		
 		if (self.ssh.isAuthorized) {
 			NSLog(@"[+] Authentication succeeded");
@@ -228,7 +247,10 @@
 	
 	// get balance
 	NSError *error = nil;
-	NSString *response = [self.ssh.channel execute:@"cd dogecoin/src; ./dogecoind getbalance" error:&error];
+	
+	NSString *command = [NSString stringWithFormat:@"cd %@; ./dogecoind getbalance", path];
+	
+	NSString *response = [self.ssh.channel execute:command error:&error];
 	if (error)
 		NSLog(@"[-] Error changing dir: %@", error.localizedDescription);
 	else
@@ -238,7 +260,9 @@
 	self.balanceLabel.text = [NSString stringWithFormat:@"%.2f Ð", balance];
 	
 	// get address
-	response = [self.ssh.channel execute:@"cd dogecoin/src; ./dogecoind listreceivedbyaddress 0 true" error:&error];
+	command = [NSString stringWithFormat:@"cd %@; ./dogecoind listreceivedbyaddress 0 true", path];
+	
+	response = [self.ssh.channel execute:command error:&error];
 	if (error)
 		NSLog(@"[-] Error changing dir: %@", error.localizedDescription);
 	else {
@@ -251,7 +275,9 @@
 	}
 	
 	// get transactions
-	response = [self.ssh.channel execute:@"cd dogecoin/src; ./dogecoind listtransactions" error:&error];
+	command = [NSString stringWithFormat:@"cd %@; ./dogecoind listtransactions", path];
+	
+	response = [self.ssh.channel execute:command error:&error];
 	if (error)
 		NSLog(@"[-] Error changing dir: %@", error.localizedDescription);
 	else {

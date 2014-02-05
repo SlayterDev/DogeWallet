@@ -22,6 +22,9 @@
 	UITextField *userField;
 	UITextField *passField;
 	UITextField *pathField;
+	
+	UIToolbar *accessoryView;
+	NSMutableArray *fields;
 }
 
 @property (weak) id<ServerAddDelegate> delegate;
