@@ -80,8 +80,10 @@
     ZBarReaderViewController *reader = [ZBarReaderViewController new];
     reader.readerDelegate = self;
     
-    [reader.scanner setSymbology:ZBAR_QRCODE config:ZBAR_CFG_ENABLE to:0];
+    [reader.scanner setSymbology:ZBAR_QRCODE config:ZBAR_CFG_ENABLE to:1];
     reader.readerView.zoom = 1.0;
+	reader.showsZBarControls = YES;
+	reader.showsCameraControls = NO;
     
     [self presentViewController:reader animated:YES completion:nil];
 }
@@ -90,8 +92,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     id<NSFastEnumeration> results = [info objectForKey:ZBarReaderControllerResults];
     
-    for (id object in results) {
-        NSLog(@"From ZBAR: %@", results);
+    for (ZBarSymbol *object in results) {
+        NSLog(@"From ZBAR: %@", object.data);
     }
 }
 
