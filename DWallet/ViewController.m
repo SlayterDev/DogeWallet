@@ -58,6 +58,7 @@
 	}
 	
     self.navigationItem.title = @"My Wallet";
+	self.navigationController.navigationBar.translucent = NO;
     
     UIBarButtonItem *sendBtn = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStyleBordered target:self action:@selector(showSendView:)];
     self.navigationItem.rightBarButtonItem = sendBtn;
@@ -99,17 +100,21 @@
 }
 
 -(void) createTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 194.0f, self.view.bounds.size.width, self.view.bounds.size.height - 194.0f) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 154.0f, self.view.bounds.size.width, self.view.bounds.size.height - 154.0f) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
+	
+	UIView *bar = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, 320, 0.3f)];
+	bar.backgroundColor = [UIColor blackColor];
+	[self.view addSubview:bar];
 }
 
 -(void) createBalanceLabel {
     self.balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 250.0f, 50.0f)];
     self.balanceLabel.center = self.view.center;
     CGRect labelFrame = self.balanceLabel.frame;
-    labelFrame.origin.y -= 155.0f;
+    labelFrame.origin.y -= 225.0f;
     [self.balanceLabel setFrame:labelFrame];
     self.balanceLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -209,7 +214,10 @@
 	
 	if (amount < 0) {
 		float fee = [[[transactions objectAtIndex:indexPath.row] objectForKey:@"fee"] floatValue];
-		cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f Ð + %.2f Ð fee", amount, fee];
+		if (fee < 0) // less than, because fees are also negative
+			cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f Ð + %.2f Ð fee", amount, fee];
+		else
+			cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f Ð", amount];
 	} else {
 		cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f Ð", amount];
 	}

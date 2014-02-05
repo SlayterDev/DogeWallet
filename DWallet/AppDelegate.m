@@ -16,6 +16,10 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.window.rootViewController];
 	self.window.rootViewController = nav;
     
+	[[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.862745098039216 green:0.807843137254902 blue:0.63921568627451 alpha:1.0]];
+	[[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.172549019607843 green:0.172549019607843 blue:0.172549019607843 alpha:1.0]];
+	[[UIToolbar appearance] setBarTintColor:[UIColor colorWithRed:0.862745098039216 green:0.807843137254902 blue:0.63921568627451 alpha:1.0]];
+	
     return YES;
 }
 							

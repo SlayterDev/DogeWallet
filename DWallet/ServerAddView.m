@@ -34,6 +34,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	
 	self.navigationItem.title = @"Server Details";
+	self.navigationController.navigationBar.translucent = NO;
 	
 	UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneTapped:)];
 	self.navigationItem.rightBarButtonItem = doneBtn;
