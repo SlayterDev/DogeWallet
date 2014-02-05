@@ -50,6 +50,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+	NSString *path = [NSString stringWithFormat:@"%@/server.plist", [[BSFileHelper sharedHelper] getDocumentsDirectory]];
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NO]) {
+		[self showServerView];
+	}
+	
     self.navigationItem.title = @"My Wallet";
     
     UIBarButtonItem *sendBtn = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStyleBordered target:self action:@selector(showSendView:)];
@@ -65,6 +70,21 @@
 	[super viewDidAppear:animated];
 	
 	[self getBalanceAndTransactionsFromServer];
+}
+
+-(void) showServerView {
+	ServerAddView *controller = [[ServerAddView alloc] initWithStyle:UITableViewStyleGrouped];
+	controller.delegate = self;
+	
+	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+	
+	[self presentViewController:nav animated:YES completion:nil];
+}
+
+-(void) serverViewDidClose:(ServerAddView *)serverAddController {
+	[self dismissViewControllerAnimated:YES completion:nil];
+	
+	
 }
 
 -(void) createTableView {

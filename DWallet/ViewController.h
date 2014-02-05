@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <NMSSH/NMSSH.h>
+#import "BSFileHelper.h"
 #import "SendDogeController.h"
+#import "ServerAddView.h"
 #import "UIImage+MDQRCode.h"
 
-@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate> {
+@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, ServerAddDelegate> {
 	NSMutableArray *transactions;
 	
 	UIAlertView *addressAlert;
