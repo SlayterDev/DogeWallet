@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ZBarSDK.h"
 
-@interface SendDogeController : UITableViewController <ZBarReaderDelegate>
+@interface SendDogeController : UITableViewController <ZBarReaderDelegate> {
+    UITextField *addressField;
+    UITextField *amountField;
+}
+
 
 @end

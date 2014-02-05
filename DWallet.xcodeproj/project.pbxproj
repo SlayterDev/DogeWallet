@@ -35,6 +35,7 @@
 		02EE7BB318A1F78200174DAF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7BB218A1F78200174DAF /* QuartzCore.framework */; };
 		02EE7BB518A1F79000174DAF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7BB418A1F79000174DAF /* libiconv.dylib */; };
 		02EE7BB818A1F80E00174DAF /* SendDogeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EE7BB718A1F80E00174DAF /* SendDogeController.m */; };
+		02EE7BBA18A2045F00174DAF /* qrcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 02EE7BB918A2045F00174DAF /* qrcode.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,7 @@
 		02EE7BB418A1F79000174DAF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		02EE7BB618A1F80E00174DAF /* SendDogeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDogeController.h; sourceTree = "<group>"; };
 		02EE7BB718A1F80E00174DAF /* SendDogeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendDogeController.m; sourceTree = "<group>"; };
+		02EE7BB918A2045F00174DAF /* qrcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qrcode.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 		02EE7B4F18A1F10E00174DAF /* DWallet */ = {
 			isa = PBXGroup;
 			children = (
+				02EE7BB918A2045F00174DAF /* qrcode.png */,
 				02EE7B8918A1F75800174DAF /* ZBarSDK */,
 				02EE7B5818A1F10E00174DAF /* AppDelegate.h */,
 				02EE7B5918A1F10E00174DAF /* AppDelegate.m */,
@@ -364,6 +367,7 @@
 				02EE7B6218A1F10E00174DAF /* Images.xcassets in Resources */,
 				02EE7B5418A1F10E00174DAF /* InfoPlist.strings in Resources */,
 				02EE7B5D18A1F10E00174DAF /* Main.storyboard in Resources */,
+				02EE7BBA18A2045F00174DAF /* qrcode.png in Resources */,
 				02EE7BAB18A1F75800174DAF /* zbar-samples.png in Resources */,
 				02EE7BA918A1F75800174DAF /* zbar-help.html in Resources */,
 				02EE7BA818A1F75800174DAF /* zbar-back.png in Resources */,

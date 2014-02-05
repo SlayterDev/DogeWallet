@@ -32,6 +32,15 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.navigationItem.title = @"Send Doge";
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelTapped:)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
+}
+
+-(void) cancelTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,10 +74,14 @@
     if (indexPath.section == 0) {
         cell.textLabel.text = @"Address";
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(200, 0, cell.bounds.size.width - 200, cell.bounds.size.height)];
-        button.backgroundColor = [UIColor blackColor];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(275, 0, cell.bounds.size.width - 275, cell.bounds.size.height)];
+        //button.backgroundColor = [UIColor blackColor];
+        [button setImage:[UIImage imageNamed:@"qrcode.png"] forState:UIControlStateNormal];
         [cell.contentView addSubview:button];
         [button addTarget:self action:@selector(scanCode:) forControlEvents:UIControlEventTouchUpInside];
+        
+        amountField = [[UITextField alloc] initWithFrame:CGRectMake(100, -2, cell.bounds.size.width - 100 - button.bounds.size.width, 50)];
+        [cell.contentView addSubview:amountField];
     } else {
         cell.textLabel.text = @"Amount";
     }
@@ -94,6 +107,7 @@
     
     for (ZBarSymbol *object in results) {
         NSLog(@"From ZBAR: %@", object.data);
+        amountField.text = object.data;
     }
 }
 
