@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <NMSSH/NMSSH.h>
 #import "ZBarSDK.h"
 
-@interface SendDogeController : UITableViewController <ZBarReaderDelegate> {
+@interface SendDogeController : UITableViewController <ZBarReaderDelegate, UIAlertViewDelegate> {
     UITextField *addressField;
     UITextField *amountField;
+	
+	UIAlertView *confirmView;
+	UIAlertView *sentView;
 }
 
 

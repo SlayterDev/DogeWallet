@@ -37,6 +37,9 @@
     
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelTapped:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
+	
+	UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStyleDone target:self action:@selector(sendTransaction:)];
+	self.navigationItem.rightBarButtonItem = sendButton;
 }
 
 -(void) cancelTapped:(id)sender {
@@ -149,6 +152,66 @@
         NSLog(@"From ZBAR: %@", object.data);
         addressField.text = object.data;
     }
+}
+
+#pragma mark - sendTransaction
+
+-(void) sendTransaction:(id)sender {
+	if ([amountField.text floatValue] == 0.0 || [amountField.text isEqualToString:@""]) {
+		[[[UIAlertView alloc] initWithTitle:@"Error." message:@"Please enter a non-zero amount to send." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+		return;
+	}
+	
+	if ([addressField.text isEqualToString:@""]) {
+		[[[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter a valid address to send to." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+		return;
+	}
+	
+	NSString *message = [NSString stringWithFormat:@"Are you sure you want to send %@ to %@?", amountField.text, addressField.text];
+	
+	confirmView = [[UIAlertView alloc] initWithTitle:@"Confirm" message:message delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Do it.", nil];
+	[confirmView show];
+}
+
+-(void) confirmSend {
+	NMSSHSession *ssh = [NMSSHSession connectToHost:@"69.90.132.160" withUsername:@"dogecoin"];
+	
+	if (ssh.isConnected) {
+		[ssh authenticateByPassword:@"mixmaster1"];
+		
+		if (ssh.isAuthorized) {
+			NSLog(@"[+] Authentication succeeded");
+		}
+	}
+	
+	ssh.channel.requestPty = YES;
+	
+	NSString *command = [NSString stringWithFormat:@"cd dogecoin/src; ./dogecoind sendtoaddress %@ %@", addressField.text, amountField.text];
+	
+	NSError *error;
+	NSString *response = [ssh.channel execute:command error:&error];
+	if (error)
+		NSLog(@"Error sending transaction: %@", error.localizedDescription);
+	else {
+		NSLog(@"Response: %@", response);
+		
+		sentView = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Transaction sent successfuly!" delegate:self cancelButtonTitle:@"Yay!" otherButtonTitles:nil];
+		[sentView show];
+		
+		[ssh disconnect];
+	}
+	
+}
+
+#pragma mark - UIAlertViewDelegate
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (alertView == confirmView) {
+		if (buttonIndex == alertView.firstOtherButtonIndex)
+			[self confirmSend];
+	} else if (alertView == sentView) {
+		[self dismissViewControllerAnimated:YES completion:nil];
+	}
 }
 
 /*

@@ -9,13 +9,19 @@
 #import <UIKit/UIKit.h>
 #import <NMSSH/NMSSH.h>
 #import "SendDogeController.h"
+#import "UIImage+MDQRCode.h"
 
-@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate> {
 	NSMutableArray *transactions;
+	
+	UIAlertView *addressAlert;
+	
+	UIImageView *QRView;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UILabel *balanceLabel;
+@property (nonatomic, strong) UILabel *myAddressLabel;
 
 @property (nonatomic, strong) NMSSHSession *ssh;
 

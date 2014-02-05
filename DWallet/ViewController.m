@@ -8,6 +8,37 @@
 
 #import "ViewController.h"
 
+@implementation NSArray (Reverse)
+
+- (NSArray *)reversedArray {
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self count]];
+    NSEnumerator *enumerator = [self reverseObjectEnumerator];
+    for (id element in enumerator) {
+        [array addObject:element];
+    }
+    return array;
+}
+
+@end
+
+@implementation NSMutableArray (Reverse)
+
+- (void)reverse {
+    if ([self count] == 0)
+        return;
+    NSUInteger i = 0;
+    NSUInteger j = [self count] - 1;
+    while (i < j) {
+        [self exchangeObjectAtIndex:i
+                  withObjectAtIndex:j];
+		
+        i++;
+        j--;
+    }
+}
+
+@end
+
 @interface ViewController ()
 
 @end
@@ -26,6 +57,12 @@
     
     [self createTableView];
     [self createBalanceLabel];
+	
+	[self getBalanceAndTransactionsFromServer];
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	
 	[self getBalanceAndTransactionsFromServer];
 }
@@ -49,6 +86,64 @@
     
     self.balanceLabel.text = @"0.00000000 Ð";
     [self.view addSubview:self.balanceLabel];
+	
+	self.myAddressLabel = [[UILabel alloc] initWithFrame:self.balanceLabel.frame];
+	CGRect addessFrame = self.myAddressLabel.frame;
+	addessFrame.origin.y += 24.0f;
+	addessFrame.origin.x = 0;
+	addessFrame.size.width = self.view.bounds.size.width;
+	[self.myAddressLabel setFrame:addessFrame];
+	
+	self.myAddressLabel.textAlignment = NSTextAlignmentCenter;
+	self.myAddressLabel.font = [UIFont systemFontOfSize:14.0f];
+	
+	UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addressTapped:)];
+	[self.myAddressLabel setUserInteractionEnabled:YES];
+	[self.myAddressLabel addGestureRecognizer:gesture];
+	
+	[self.view addSubview:self.myAddressLabel];
+}
+
+-(void) addressTapped:(id)sender {
+	addressAlert = [[UIAlertView alloc] initWithTitle:@"My Address" message:@"Would you like to copy your address, or show a QR code?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Copy Address", @"Show QR Code", nil];
+	[addressAlert show];
+}
+
+-(void) copyAddress {
+	UIPasteboard *pb = [UIPasteboard generalPasteboard];
+	pb.string = self.myAddressLabel.text;
+	[[[UIAlertView alloc] initWithTitle:@"Copied!" message:@"Your address was copied to the clipboard." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+}
+
+-(void) showQRCode {
+	UIImage *qr = [UIImage mdQRCodeForString:self.myAddressLabel.text size:640.0f];
+	
+	QRView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 320.0f)];
+	QRView.center = self.view.center;
+	QRView.image = qr;
+	QRView.backgroundColor = [UIColor whiteColor];
+	
+	UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(qrTapped:)];
+	[QRView setUserInteractionEnabled:YES];
+	[QRView addGestureRecognizer:gesture];
+	
+	[self.view addSubview:QRView];
+	
+}
+
+-(void) qrTapped:(id)sender {
+	[QRView removeFromSuperview];
+	QRView = nil;
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (alertView == addressAlert) {
+		if (buttonIndex == alertView.firstOtherButtonIndex) {
+			[self copyAddress];
+		} else if (buttonIndex == alertView.firstOtherButtonIndex + 1) {
+			[self showQRCode];
+		}
+	}
 }
 
 -(void) showSendView:(id)sender {
@@ -80,7 +175,13 @@
 	
 	cell.textLabel.text = [[transactions objectAtIndex:indexPath.row] objectForKey:@"address"];
 	float amount = [[[transactions objectAtIndex:indexPath.row] objectForKey:@"amount"] floatValue];
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f", amount];
+	
+	if (amount < 0) {
+		float fee = [[[transactions objectAtIndex:indexPath.row] objectForKey:@"fee"] floatValue];
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f Ð + %.2f Ð fee", amount, fee];
+	} else {
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f Ð", amount];
+	}
 	
 	if (amount > 0.0f)
 		cell.detailTextLabel.textColor = [UIColor greenColor];
@@ -105,22 +206,39 @@
 	
 	self.ssh.channel.requestPty = YES;
 	
+	// get balance
 	NSError *error = nil;
 	NSString *response = [self.ssh.channel execute:@"cd dogecoin/src; ./dogecoind getbalance" error:&error];
 	if (error)
 		NSLog(@"[-] Error changing dir: %@", error.localizedDescription);
 	else
-		NSLog(@"[+] Recieved response: %@", response);
+		NSLog(@"[+] Recieved balance: %@", response);
 	
 	float balance = [response floatValue];
 	self.balanceLabel.text = [NSString stringWithFormat:@"%.2f Ð", balance];
 	
+	// get address
+	response = [self.ssh.channel execute:@"cd dogecoin/src; ./dogecoind listreceivedbyaddress 0 true" error:&error];
+	if (error)
+		NSLog(@"[-] Error changing dir: %@", error.localizedDescription);
+	else {
+		NSLog(@"[+] Recieved address: %@", response);
+		
+		NSArray *addresses = [NSJSONSerialization JSONObjectWithData:[response dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
+		addresses = [addresses reversedArray];
+		
+		self.myAddressLabel.text = [[addresses objectAtIndex:0] objectForKey:@"address"];
+	}
+	
+	// get transactions
 	response = [self.ssh.channel execute:@"cd dogecoin/src; ./dogecoind listtransactions" error:&error];
 	if (error)
 		NSLog(@"[-] Error changing dir: %@", error.localizedDescription);
 	else {
 		NSLog(@"[+] Recieved response: %@", response);
 		transactions = [NSJSONSerialization JSONObjectWithData:[response dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
+		
+		[transactions reverse];
 		
 		[self.tableView reloadData];
 	}
