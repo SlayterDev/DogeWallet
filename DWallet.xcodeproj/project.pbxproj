@@ -10,6 +10,7 @@
 		02062F6218A33E8200C67D0D /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02062F6118A33E8200C67D0D /* TransactionViewController.m */; };
 		02062F6618A3469E00C67D0D /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 02062F6518A3469E00C67D0D /* info.png */; };
 		02062F6818A35AEF00C67D0D /* enter-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 02062F6718A35AEF00C67D0D /* enter-25.png */; };
+		02062F6A18A35D2500C67D0D /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 02062F6918A35D2500C67D0D /* Icon-120.png */; };
 		021944AD18A294CD0044EC29 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 0219449D18A294CD0044EC29 /* bitstream.c */; };
 		021944AE18A294CD0044EC29 /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 0219449F18A294CD0044EC29 /* mask.c */; };
 		021944AF18A294CD0044EC29 /* qrencode.c in Sources */ = {isa = PBXBuildFile; fileRef = 021944A118A294CD0044EC29 /* qrencode.c */; };
@@ -72,6 +73,7 @@
 		02062F6118A33E8200C67D0D /* TransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionViewController.m; sourceTree = "<group>"; };
 		02062F6518A3469E00C67D0D /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		02062F6718A35AEF00C67D0D /* enter-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enter-25.png"; sourceTree = "<group>"; };
+		02062F6918A35D2500C67D0D /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
 		0219449D18A294CD0044EC29 /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
 		0219449E18A294CD0044EC29 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
 		0219449F18A294CD0044EC29 /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		02062F5F18A33ADA00C67D0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				02062F6918A35D2500C67D0D /* Icon-120.png */,
 				02062F6518A3469E00C67D0D /* info.png */,
 				02EE7BB918A2045F00174DAF /* qrcode.png */,
 				02A9233118A3043B009D02E6 /* info-25.png */,
@@ -480,6 +483,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02062F6A18A35D2500C67D0D /* Icon-120.png in Resources */,
 				02EE7B6218A1F10E00174DAF /* Images.xcassets in Resources */,
 				02A9233318A3043B009D02E6 /* info-25.png in Resources */,
 				02A9233918A30F9A009D02E6 /* dogecoin.png in Resources */,
@@ -653,7 +657,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = armv7;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -676,7 +679,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = armv7;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
