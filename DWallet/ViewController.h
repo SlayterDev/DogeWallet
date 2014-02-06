@@ -26,6 +26,12 @@
 	NSDictionary *server;
 	
 	UIButton *refreshButton;
+	
+	bool isSlidUp;
+	UIButton *slideBtn;
+	
+	UIImageView *iv;
+	UIView *bar;
 }
 
 @property (nonatomic, strong) UITableView *tableView;

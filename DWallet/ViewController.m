@@ -122,7 +122,7 @@
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
 	
-	UIView *bar = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, 320, 0.3f)];
+	bar = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, 320, 0.3f)];
 	bar.backgroundColor = [UIColor blackColor];
 	[self.view addSubview:bar];
 }
@@ -170,9 +170,60 @@
 	[self.view addSubview:refreshButton];
 	
 	// Doge image
-	UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dogecoin.png"]];
+	iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dogecoin.png"]];
 	[iv setFrame:CGRectMake(3, 3, 45, 45)];
 	[self.view addSubview:iv];
+	
+	// slide btn
+	slideBtn = [[UIButton alloc] initWithFrame:CGRectMake(15.0f, self.tableView.frame.origin.y - 35, 30, 30)];
+	[slideBtn setImage:[UIImage imageNamed:@"down4-100.png"] forState:UIControlStateNormal];
+	[self.view addSubview:slideBtn];
+	isSlidUp = NO;
+	[slideBtn addTarget:self action:@selector(slideView:) forControlEvents:UIControlEventTouchUpInside];
+	slideBtn.transform = CGAffineTransformMakeRotation(180.0*M_PI/180.0);
+}
+
+-(void) slideView:(id)sender {
+	if (!isSlidUp)  { // slide up
+		CGRect newSlideBtnFrame = CGRectMake(15.0f, 7, 30, 30);
+		CGRect newRefreshBtnFrame = CGRectMake(228, 12, 100, 20);
+		CGRect newTableViewFrame = CGRectMake(0.0f, 45.0f, 320, self.view.bounds.size.height - 45.0f);
+		CGRect newBarFrame = CGRectMake(0.0, newTableViewFrame.origin.y, 320, 0.3f);
+		[UIView animateWithDuration:0.4 animations:^(void) {
+			[slideBtn setFrame:newSlideBtnFrame];
+			slideBtn.transform = CGAffineTransformMakeRotation(0.0*M_PI/180.0);
+			[refreshButton setFrame:newRefreshBtnFrame];
+			[self.tableView setFrame:newTableViewFrame];
+			[bar setFrame:newBarFrame];
+			
+			// hide stuff
+			self.balanceLabel.hidden = YES;
+			self.myAddressLabel.hidden = YES;
+			QRView.hidden = YES;
+			iv.hidden = YES;
+		}];
+		isSlidUp = YES;
+	} else {
+		CGRect newTableViewFrame = CGRectMake(0.0f, 154.0f, self.view.bounds.size.width, self.view.bounds.size.height - 154.0f);
+		CGRect newBarFrame = CGRectMake(newTableViewFrame.origin.x, newTableViewFrame.origin.y, 320, 0.3f);
+		CGRect newSlideBtnFrame = CGRectMake(15.0f, newTableViewFrame.origin.y - 35, 30, 30);
+		CGRect newRefreshBtnFrame = CGRectMake(228, newTableViewFrame.origin.y - 30, 100, 20);
+		[UIView animateWithDuration:0.4 animations:^(void) {
+			[slideBtn setFrame:newSlideBtnFrame];
+			slideBtn.transform = CGAffineTransformMakeRotation(180.0*M_PI/180.0);
+			[refreshButton setFrame:newRefreshBtnFrame];
+			[self.tableView setFrame:newTableViewFrame];
+			[bar setFrame:newBarFrame];
+			
+			isSlidUp = NO;
+		} completion:^(BOOL finished) {
+			// unhide stuff
+			self.balanceLabel.hidden = NO;
+			self.myAddressLabel.hidden = NO;
+			QRView.hidden = NO;
+			iv.hidden = NO;
+		}];
+	}
 }
 
 -(void) addressTapped:(id)sender {

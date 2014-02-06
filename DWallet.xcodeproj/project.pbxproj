@@ -27,6 +27,9 @@
 		02A9233718A304F7009D02E6 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A9233618A304F7009D02E6 /* InfoViewController.m */; };
 		02A9233918A30F9A009D02E6 /* dogecoin.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A9233818A30F9A009D02E6 /* dogecoin.png */; };
 		02A9233E18A31535009D02E6 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9233D18A31535009D02E6 /* CoreImage.framework */; };
+		02E77B8C18A43812005B0B73 /* down4-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E77B8918A43812005B0B73 /* down4-50.png */; };
+		02E77B8D18A43812005B0B73 /* down4-75.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E77B8A18A43812005B0B73 /* down4-75.png */; };
+		02E77B8E18A43812005B0B73 /* down4-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E77B8B18A43812005B0B73 /* down4-100.png */; };
 		02EE7B4A18A1F10E00174DAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7B4918A1F10E00174DAF /* Foundation.framework */; };
 		02EE7B4C18A1F10E00174DAF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7B4B18A1F10E00174DAF /* CoreGraphics.framework */; };
 		02EE7B4E18A1F10E00174DAF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EE7B4D18A1F10E00174DAF /* UIKit.framework */; };
@@ -102,6 +105,9 @@
 		02A9233618A304F7009D02E6 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		02A9233818A30F9A009D02E6 /* dogecoin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dogecoin.png; sourceTree = "<group>"; };
 		02A9233D18A31535009D02E6 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		02E77B8918A43812005B0B73 /* down4-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down4-50.png"; sourceTree = "<group>"; };
+		02E77B8A18A43812005B0B73 /* down4-75.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down4-75.png"; sourceTree = "<group>"; };
+		02E77B8B18A43812005B0B73 /* down4-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down4-100.png"; sourceTree = "<group>"; };
 		02EE7B4618A1F10E00174DAF /* DWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02EE7B4918A1F10E00174DAF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		02EE7B4B18A1F10E00174DAF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -300,6 +306,9 @@
 				02062F5F18A33ADA00C67D0D /* Assets */,
 				021944B518A294D20044EC29 /* QRGen */,
 				02EE7B8918A1F75800174DAF /* ZBarSDK */,
+				02E77B8918A43812005B0B73 /* down4-50.png */,
+				02E77B8A18A43812005B0B73 /* down4-75.png */,
+				02E77B8B18A43812005B0B73 /* down4-100.png */,
 				02EE7B5818A1F10E00174DAF /* AppDelegate.h */,
 				02EE7B5918A1F10E00174DAF /* AppDelegate.m */,
 				021944B918A2C8390044EC29 /* BSFileHelper.h */,
@@ -487,12 +496,15 @@
 				02EE7B6218A1F10E00174DAF /* Images.xcassets in Resources */,
 				02A9233318A3043B009D02E6 /* info-25.png in Resources */,
 				02A9233918A30F9A009D02E6 /* dogecoin.png in Resources */,
+				02E77B8D18A43812005B0B73 /* down4-75.png in Resources */,
 				02A9233418A3043B009D02E6 /* info-32.png in Resources */,
 				02EE7B5418A1F10E00174DAF /* InfoPlist.strings in Resources */,
 				02EE7B5D18A1F10E00174DAF /* Main.storyboard in Resources */,
 				02EE7BBA18A2045F00174DAF /* qrcode.png in Resources */,
 				02EE7BAB18A1F75800174DAF /* zbar-samples.png in Resources */,
 				02EE7BA918A1F75800174DAF /* zbar-help.html in Resources */,
+				02E77B8E18A43812005B0B73 /* down4-100.png in Resources */,
+				02E77B8C18A43812005B0B73 /* down4-50.png in Resources */,
 				02EE7BA818A1F75800174DAF /* zbar-back.png in Resources */,
 				02EE7BAA18A1F75800174DAF /* zbar-helpicons.png in Resources */,
 				02062F6818A35AEF00C67D0D /* enter-25.png in Resources */,
