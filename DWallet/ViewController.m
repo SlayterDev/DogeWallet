@@ -50,7 +50,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     
 	NSString *path = [self getServerPath];
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NO]) {
@@ -70,8 +69,6 @@
 	
     [self createTableView];
     [self createBalanceLabel];
-	
-	//[self getBalanceAndTransactionsFromServer];
 }
 
 -(NSString *) getServerPath {
@@ -131,6 +128,7 @@
 }
 
 -(void) createBalanceLabel {
+    // Balance Label
     self.balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 250.0f, 50.0f)];
     self.balanceLabel.center = self.view.center;
     CGRect labelFrame = self.balanceLabel.frame;
@@ -147,6 +145,7 @@
     self.balanceLabel.text = @"0.00000000 Ð";
     [self.view addSubview:self.balanceLabel];
 	
+    // Address Label
 	self.myAddressLabel = [[UILabel alloc] initWithFrame:self.balanceLabel.frame];
 	CGRect addessFrame = self.myAddressLabel.frame;
 	addessFrame.origin.y += 24.0f;
@@ -160,8 +159,6 @@
 	UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(copyAddress)];
 	[self.myAddressLabel setUserInteractionEnabled:YES];
 	[self.myAddressLabel addGestureRecognizer:gesture];
-    //[self.balanceLabel setUserInteractionEnabled:YES];
-    //[self.balanceLabel addGestureRecognizer:gesture];
 	
 	[self.view addSubview:self.myAddressLabel];
 	
@@ -194,11 +191,6 @@
 	
 	if (!QRView) {
         QRView = [[UIImageView alloc] initWithFrame:CGRectMake(272.0f, 6.5f, 40.0f, 40.0f)];
-        /*QRView.center = self.view.center;
-        
-        CGPoint newCenter = QRView.center;
-        newCenter.y -= 60.0f;
-        QRView.center = newCenter;*/
         
         QRView.image = qr;
         QRView.backgroundColor = [UIColor whiteColor];
@@ -271,16 +263,12 @@
 		cell = [[TransactionCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 	
 	float amount = [[[transactions objectAtIndex:indexPath.row] objectForKey:@"amount"] floatValue];
-	//cell.detailTextLabel.text = [[transactions objectAtIndex:indexPath.row] objectForKey:@"address"];
 	cell.addressLabel.text = (amount < 0) ? @"Sent Doge" : @"Recieved Doge";
 	
 	if (amount < 0) {
 		float fee = [[[transactions objectAtIndex:indexPath.row] objectForKey:@"fee"] floatValue];
 		amount += fee;
-		/*if (fee < 0) // less than, because fees are also negative
-			cell.amountLabel.text = [NSString stringWithFormat:@"%.2f Ð + %.2f Ð fee", amount, fee];
-		else*/
-			cell.amountLabel.text = [NSString stringWithFormat:@"%.2f Ð", amount];
+        cell.amountLabel.text = [NSString stringWithFormat:@"%.2f Ð", amount];
 	} else {
 		cell.amountLabel.text = [NSString stringWithFormat:@"%.2f Ð", amount];
 	}
@@ -305,6 +293,7 @@
     controller.transaction = transaction;
     
     [self.navigationController pushViewController:controller animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Data Fetching

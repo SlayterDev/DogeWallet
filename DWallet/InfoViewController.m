@@ -108,7 +108,6 @@
 }
 
 -(void) serverViewDidClose:(ServerAddView *)serverAddController {
-	//[self.navigationController popViewControllerAnimated:YES];
 	server = [[NSDictionary alloc] initWithContentsOfFile:[self getServerPath]];
 	[self.tableView reloadData];
 }
