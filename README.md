@@ -14,3 +14,5 @@ This wallet client may not be for the average user as it requires the use of Dog
 *Note to developers*
 
 If you would like to contribute and help to make the wallet better, feel free to fork the code and submit changes.
+
+<a href="http://imgur.com/8oMMm1q"><img src="http://i.imgur.com/8oMMm1q.png" title="Hosted by imgur.com" style="width: 50px"/></a>
