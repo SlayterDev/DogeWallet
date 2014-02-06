@@ -81,7 +81,12 @@
 -(void) viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	
-	[self getBalanceAndTransactionsFromServer];
+	[self refreshWallet];
+}
+
+-(void) refreshWallet {
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+	[self performSelectorInBackground:@selector(getBalanceAndTransactionsFromServer) withObject:nil];
 }
 
 -(void) showServerView {
@@ -155,6 +160,18 @@
 	[self.myAddressLabel addGestureRecognizer:gesture];
 	
 	[self.view addSubview:self.myAddressLabel];
+	
+	// Refresh Button
+	refreshButton = [[UIButton alloc] initWithFrame:CGRectMake(228, self.tableView.frame.origin.y - 30, 100, 20)];
+	[refreshButton setTitle:@"Refresh" forState:UIControlStateNormal];
+	[refreshButton setTitleColor:[UIColor colorWithRed:0.172549019607843 green:0.172549019607843 blue:0.172549019607843 alpha:1.0] forState:UIControlStateNormal];
+	[refreshButton addTarget:self action:@selector(refreshWallet) forControlEvents:UIControlEventTouchUpInside];
+	[self.view addSubview:refreshButton];
+	
+	// Doge image
+	UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dogecoin.png"]];
+	[iv setFrame:CGRectMake(0, 1, 45, 45)];
+	[self.view addSubview:iv];
 }
 
 -(void) addressTapped:(id)sender {
@@ -336,6 +353,7 @@
 	}
 	
 	[self.ssh disconnect]; // don't forget to do this when done
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 @end

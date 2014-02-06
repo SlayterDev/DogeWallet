@@ -23,6 +23,8 @@
 	UIImageView *QRView;
 	
 	NSDictionary *server;
+	
+	UIButton *refreshButton;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
