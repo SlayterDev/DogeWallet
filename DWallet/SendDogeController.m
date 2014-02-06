@@ -153,7 +153,15 @@
     
     for (ZBarSymbol *object in results) {
         NSLog(@"From ZBAR: %@", object.data);
-        addressField.text = object.data;
+        
+        NSString *string = object.data;
+        
+        if ([string hasPrefix:@"dogecoin:"] || [string hasPrefix:@"Dogecoin:"]) { // I've seen this happen when scanning from android
+            NSArray *componets = [string componentsSeparatedByString:@":"];
+            string = [componets objectAtIndex:1];
+        }
+        
+        addressField.text = string;
     }
 }
 
