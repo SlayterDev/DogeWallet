@@ -157,9 +157,11 @@
 	self.myAddressLabel.textAlignment = NSTextAlignmentCenter;
 	self.myAddressLabel.font = [UIFont systemFontOfSize:14.0f];
 	
-	UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addressTapped:)];
+	UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(copyAddress)];
 	[self.myAddressLabel setUserInteractionEnabled:YES];
 	[self.myAddressLabel addGestureRecognizer:gesture];
+    //[self.balanceLabel setUserInteractionEnabled:YES];
+    //[self.balanceLabel addGestureRecognizer:gesture];
 	
 	[self.view addSubview:self.myAddressLabel];
 	
@@ -360,7 +362,7 @@
 	}
 	
 	// get transactions
-	command = [NSString stringWithFormat:@"cd %@; ./dogecoind listtransactions", path];
+	command = [NSString stringWithFormat:@"cd %@; ./dogecoind listtransactions \"*\" 100", path];
 	
 	response = [self.ssh.channel execute:command error:&error];
 	if (error)

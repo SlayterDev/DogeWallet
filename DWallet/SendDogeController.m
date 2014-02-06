@@ -41,6 +41,8 @@
 	
 	UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStyleDone target:self action:@selector(sendTransaction:)];
 	self.navigationItem.rightBarButtonItem = sendButton;
+    
+    server = [[NSDictionary alloc] initWithContentsOfFile:[[[BSFileHelper sharedHelper] getDocumentsDirectory] stringByAppendingPathComponent:@"server.plist"]];
 }
 
 -(void) cancelTapped:(id)sender {
@@ -158,6 +160,11 @@
 #pragma mark - sendTransaction
 
 -(void) sendTransaction:(id)sender {
+    if ([amountField isFirstResponder] || [addressField isFirstResponder]) {
+        [amountField resignFirstResponder];
+        [addressField resignFirstResponder];
+    }
+    
 	if ([amountField.text floatValue] == 0.0 || [amountField.text isEqualToString:@""]) {
 		[[[UIAlertView alloc] initWithTitle:@"Error." message:@"Please enter a non-zero amount to send." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
 		return;
@@ -174,11 +181,17 @@
 	[confirmView show];
 }
 
--(void) confirmSend {
-	NMSSHSession *ssh = [NMSSHSession connectToHost:@"69.90.132.160" withUsername:@"dogecoin"];
+-(void) confirmSend:(NSString *)walletPass {
+	NSString *host = [server objectForKey:@"host"];
+	NSString *user = [server objectForKey:@"user"];
+	NSString *pass = [server objectForKey:@"pass"];
+	NSString *path = [server objectForKey:@"path"];
+    bool encrypted = [[server objectForKey:@"encrypted"] boolValue];
+    
+    NMSSHSession *ssh = [NMSSHSession connectToHost:host withUsername:user];
 	
 	if (ssh.isConnected) {
-		[ssh authenticateByPassword:@"mixmaster1"];
+		[ssh authenticateByPassword:pass];
 		
 		if (ssh.isAuthorized) {
 			NSLog(@"[+] Authentication succeeded");
@@ -187,13 +200,20 @@
 	
 	ssh.channel.requestPty = YES;
 	
-	NSString *command = [NSString stringWithFormat:@"cd dogecoin/src; ./dogecoind sendtoaddress %@ %@", addressField.text, amountField.text];
+	NSString *command;
+    if (!encrypted) {
+        command = [NSString stringWithFormat:@"cd %@; ./dogecoind sendtoaddress %@ %@", path, addressField.text, amountField.text];
+    } else {
+        command = [NSString stringWithFormat:@"cd %@; ./dogecoind walletpassphrase %@ 10; ./dogecoind sendtoaddress %@ %@", path, walletPass, addressField.text, amountField.text];
+    }
 	
 	NSError *error;
 	NSString *response = [ssh.channel execute:command error:&error];
-	if (error)
+	if (error) {
 		NSLog(@"Error sending transaction: %@", error.localizedDescription);
-	else {
+    
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"There was an error sending the transaction" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+    } else {
 		NSLog(@"Response: %@", response);
 		
 		sentView = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Transaction sent successfuly!" delegate:self cancelButtonTitle:@"Yay!" otherButtonTitles:nil];
@@ -204,15 +224,31 @@
 	
 }
 
+-(void) getPassFromUser {
+    walletPassView = [[UIAlertView alloc] initWithTitle:@"Password" message:@"Enter the password for your wallet" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+    walletPassView.alertViewStyle = UIAlertViewStyleSecureTextInput;
+    [walletPassView textFieldAtIndex:0].keyboardAppearance = UIKeyboardAppearanceDark;
+    [walletPassView show];
+}
+
 #pragma mark - UIAlertViewDelegate
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (alertView == confirmView) {
-		if (buttonIndex == alertView.firstOtherButtonIndex)
-			[self confirmSend];
+		if (buttonIndex == alertView.firstOtherButtonIndex) {
+            if ([[server objectForKey:@"encrypted"] boolValue])
+                [self getPassFromUser];
+            else
+                [self confirmSend:nil];
+        }
 	} else if (alertView == sentView) {
 		[self dismissViewControllerAnimated:YES completion:nil];
-	}
+	} else if (alertView == walletPassView) {
+        if (buttonIndex == alertView.firstOtherButtonIndex) {
+            NSString *walletPass = [alertView textFieldAtIndex:0].text;
+            [self confirmSend:walletPass];
+        }
+    }
 }
 
 /*

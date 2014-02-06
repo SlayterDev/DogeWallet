@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		02062F6218A33E8200C67D0D /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02062F6118A33E8200C67D0D /* TransactionViewController.m */; };
+		02062F6618A3469E00C67D0D /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 02062F6518A3469E00C67D0D /* info.png */; };
 		021944AD18A294CD0044EC29 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 0219449D18A294CD0044EC29 /* bitstream.c */; };
 		021944AE18A294CD0044EC29 /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 0219449F18A294CD0044EC29 /* mask.c */; };
 		021944AF18A294CD0044EC29 /* qrencode.c in Sources */ = {isa = PBXBuildFile; fileRef = 021944A118A294CD0044EC29 /* qrencode.c */; };
@@ -68,6 +69,7 @@
 /* Begin PBXFileReference section */
 		02062F6018A33E8200C67D0D /* TransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionViewController.h; sourceTree = "<group>"; };
 		02062F6118A33E8200C67D0D /* TransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionViewController.m; sourceTree = "<group>"; };
+		02062F6518A3469E00C67D0D /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		0219449D18A294CD0044EC29 /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
 		0219449E18A294CD0044EC29 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
 		0219449F18A294CD0044EC29 /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		02062F5F18A33ADA00C67D0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				02062F6518A3469E00C67D0D /* info.png */,
 				02EE7BB918A2045F00174DAF /* qrcode.png */,
 				02A9233118A3043B009D02E6 /* info-25.png */,
 				02A9233218A3043B009D02E6 /* info-32.png */,
@@ -485,6 +488,7 @@
 				02EE7BA918A1F75800174DAF /* zbar-help.html in Resources */,
 				02EE7BA818A1F75800174DAF /* zbar-back.png in Resources */,
 				02EE7BAA18A1F75800174DAF /* zbar-helpicons.png in Resources */,
+				02062F6618A3469E00C67D0D /* info.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

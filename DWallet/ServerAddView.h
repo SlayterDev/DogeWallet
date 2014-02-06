@@ -22,6 +22,7 @@
 	UITextField *userField;
 	UITextField *passField;
 	UITextField *pathField;
+    UISwitch *encryptedSwitch;
 	
 	UIToolbar *accessoryView;
 	NSMutableArray *fields;

@@ -96,7 +96,7 @@
         
         cell.detailTextLabel.text = [self.transaction objectForKey:@"txid"];
     } else if (indexPath.row == 5) {
-        cell.textLabel.text = @"Time Recieved";
+        cell.textLabel.text = @"Time";
         
         double epochTime = [[self.transaction objectForKey:@"timereceived"] doubleValue];
         NSTimeInterval seconds = epochTime;

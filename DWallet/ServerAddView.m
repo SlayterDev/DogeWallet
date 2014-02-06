@@ -76,7 +76,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 4;
+    return 5;
 }
 
 -(NSString *) tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
@@ -133,7 +133,13 @@
 			pathField.text = [server objectForKey:@"path"];
 		
 		[fields insertObject:pathField atIndex:3];
-	}
+	} else if (indexPath.row == 4) {
+        cell.textLabel.text = @"Wallet is Encrypted";
+        
+        encryptedSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+        cell.accessoryView = encryptedSwitch;
+        [encryptedSwitch setOn:NO animated:NO];
+    }
 	
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -153,7 +159,7 @@
 }
 
 -(void) doneTapped:(id)sender {
-	NSDictionary *serverInfo = @{@"host": hostField.text, @"user": userField.text, @"pass": passField.text, @"path": pathField.text};
+	NSDictionary *serverInfo = @{@"host": hostField.text, @"user": userField.text, @"pass": passField.text, @"path": pathField.text, @"encrypted": [NSNumber numberWithBool:encryptedSwitch.on]};
 	
 	NSString *path = [NSString stringWithFormat:@"%@/server.plist", [[BSFileHelper sharedHelper] getDocumentsDirectory]];
 	
