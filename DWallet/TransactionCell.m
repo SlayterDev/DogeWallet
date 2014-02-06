@@ -40,7 +40,7 @@
 	
 	if ([self.unconfirmedLabel.text isEqualToString:@"unconfirmed"]) {
 		CGPoint addCenter = self.addressLabel.center;
-		addCenter.y = self.center.y;
+		addCenter.y = self.bounds.size.height/2;
 		self.addressLabel.center = addCenter;
 	}
 }

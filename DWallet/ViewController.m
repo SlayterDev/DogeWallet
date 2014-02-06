@@ -276,6 +276,8 @@
 	int conf = [[[transactions objectAtIndex:indexPath.row] objectForKey:@"confirmations"] intValue];
 	if (conf < 3) {
 		cell.unconfirmedLabel.text = @"unconfirmed";
+	} else {
+		cell.unconfirmedLabel.text = @"";
 	}
 	
 	if (amount > 0.0f)
