@@ -189,7 +189,7 @@
 		CGRect newRefreshBtnFrame = CGRectMake(228, 12, 100, 20);
 		CGRect newTableViewFrame = CGRectMake(0.0f, 45.0f, 320, self.view.bounds.size.height - 45.0f);
 		CGRect newBarFrame = CGRectMake(0.0, newTableViewFrame.origin.y, 320, 0.3f);
-		[UIView animateWithDuration:0.4 animations:^(void) {
+		[UIView animateWithDuration:0.3 animations:^(void) {
 			[slideBtn setFrame:newSlideBtnFrame];
 			slideBtn.transform = CGAffineTransformMakeRotation(0.0*M_PI/180.0);
 			[refreshButton setFrame:newRefreshBtnFrame];
@@ -208,7 +208,7 @@
 		CGRect newBarFrame = CGRectMake(newTableViewFrame.origin.x, newTableViewFrame.origin.y, 320, 0.3f);
 		CGRect newSlideBtnFrame = CGRectMake(15.0f, newTableViewFrame.origin.y - 35, 30, 30);
 		CGRect newRefreshBtnFrame = CGRectMake(228, newTableViewFrame.origin.y - 30, 100, 20);
-		[UIView animateWithDuration:0.4 animations:^(void) {
+		[UIView animateWithDuration:0.3  animations:^(void) {
 			[slideBtn setFrame:newSlideBtnFrame];
 			slideBtn.transform = CGAffineTransformMakeRotation(180.0*M_PI/180.0);
 			[refreshButton setFrame:newRefreshBtnFrame];
