@@ -100,7 +100,11 @@
 }
 
 -(void) infoTapped:(id)sender {
+	InfoViewController *controller = [[InfoViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	
+	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+	
+	[self presentViewController:nav animated:YES completion:nil];
 }
 
 -(void) loadServerDetails {

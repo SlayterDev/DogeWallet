@@ -33,14 +33,30 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	
+	NSString *path = [self getServerPath];
+	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NO]) {
+		server = [[NSDictionary alloc] initWithContentsOfFile:path];
+	}
+	
 	self.navigationItem.title = @"Server Details";
 	self.navigationController.navigationBar.translucent = NO;
 	
-	UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneTapped:)];
-	self.navigationItem.rightBarButtonItem = doneBtn;
+	if (!server) { // first time entering
+		UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneTapped:)];
+		self.navigationItem.rightBarButtonItem = doneBtn;
+	}
 	
 	accessoryView = [self createAccessoryView];
 	fields = [[NSMutableArray alloc] init];
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+	if (server)
+		[self doneTapped:nil];
+}
+
+-(NSString *) getServerPath {
+	return [NSString stringWithFormat:@"%@/server.plist", [[BSFileHelper sharedHelper] getDocumentsDirectory]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,12 +97,18 @@
 		hostField = [self createTextField];
 		[cell.contentView addSubview:hostField];
 		
+		if (server)
+			hostField.text = [server objectForKey:@"host"];
+		
 		[fields insertObject:hostField atIndex:0];
 	} else if (indexPath.row == 1) {
 		cell.textLabel.text = @"Username";
 		
 		userField = [self createTextField];
 		[cell.contentView addSubview:userField];
+		
+		if (server)
+			userField.text = [server objectForKey:@"user"];
 		
 		[fields insertObject:userField atIndex:1];
 	} else if (indexPath.row == 2) {
@@ -96,6 +118,9 @@
 		passField.secureTextEntry = YES;
 		[cell.contentView addSubview:passField];
 		
+		if (server)
+			passField.text = [server objectForKey:@"pass"];
+		
 		[fields insertObject:passField atIndex:2];
 	} else if (indexPath.row == 3) {
 		cell.textLabel.text = @"Path";
@@ -103,6 +128,9 @@
 		pathField = [self createTextField];
 		pathField.text = @"~/";
 		[cell.contentView addSubview:pathField];
+		
+		if (server)
+			pathField.text = [server objectForKey:@"path"];
 		
 		[fields insertObject:pathField atIndex:3];
 	}

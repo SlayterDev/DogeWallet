@@ -11,6 +11,7 @@
 #import "BSFileHelper.h"
 #import "SendDogeController.h"
 #import "ServerAddView.h"
+#import "InfoViewController.h"
 #import "TransactionCell.h"
 #import "UIImage+MDQRCode.h"
 

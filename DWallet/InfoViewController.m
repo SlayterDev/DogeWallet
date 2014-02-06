@@ -32,6 +32,20 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	
+	self.navigationItem.title = @"Info";
+	
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneTapped:)];
+	
+	server = [[NSDictionary alloc] initWithContentsOfFile:[self getServerPath]];
+}
+
+-(void) doneTapped:(id)sender {
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(NSString *) getServerPath {
+	return [NSString stringWithFormat:@"%@/server.plist", [[BSFileHelper sharedHelper] getDocumentsDirectory]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,26 +58,59 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 1;
+}
+
+-(NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if (section == 0)
+		return @"help";
+	else
+		return @"settings";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Configure the cell...
+    if (cell == nil)
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    
+    if (indexPath.section == 0) {
+		cell.textLabel.text = @"Help";
+	} else if (indexPath.section == 1) {
+		cell.textLabel.text = @"Server Info";
+		cell.detailTextLabel.text = [server objectForKey:@"host"];
+	}
+	
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section == 0) {
+		
+	} else if (indexPath.section == 1) {
+		if (indexPath.row == 0) {
+			ServerAddView *controller = [[ServerAddView alloc] initWithStyle:UITableViewStyleGrouped];
+			controller.delegate = self;
+			[self.navigationController pushViewController:controller animated:YES];
+		}
+	}
+}
+
+-(void) serverViewDidClose:(ServerAddView *)serverAddController {
+	//[self.navigationController popViewControllerAnimated:YES];
+	server = [[NSDictionary alloc] initWithContentsOfFile:[self getServerPath]];
+	[self.tableView reloadData];
 }
 
 /*

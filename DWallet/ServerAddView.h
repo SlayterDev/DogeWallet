@@ -25,6 +25,8 @@
 	
 	UIToolbar *accessoryView;
 	NSMutableArray *fields;
+	
+	NSDictionary *server;
 }
 
 @property (weak) id<ServerAddDelegate> delegate;
