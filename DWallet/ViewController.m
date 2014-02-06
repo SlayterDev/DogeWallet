@@ -325,7 +325,13 @@
 		
 		if (self.ssh.isAuthorized) {
 			NSLog(@"[+] Authentication succeeded");
+		} else {
+			[[[UIAlertView alloc] initWithTitle:@"Error" message:@"Error authenticating with server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+			return;
 		}
+	} else {
+		[[[UIAlertView alloc] initWithTitle:@"Error" message:@"Error connecting to server. Sometimes cause by poor to no signal." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+		return;
 	}
 	
 	self.ssh.channel.requestPty = YES;
