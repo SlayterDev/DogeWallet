@@ -38,10 +38,14 @@
 -(void) layoutSubviews {
 	[super layoutSubviews];
 	
-	if ([self.unconfirmedLabel.text isEqualToString:@"unconfirmed"]) {
-		CGPoint addCenter = self.addressLabel.center;
-		addCenter.y = self.bounds.size.height/2;
-		self.addressLabel.center = addCenter;
+	CGPoint addCenter = self.addressLabel.center;
+	addCenter.y = self.bounds.size.height/2;
+	self.addressLabel.center = addCenter;
+	
+	if (![self.unconfirmedLabel.text isEqualToString:@"unconfirmed"]) {
+		CGPoint amountCenter = self.amountLabel.center;
+		amountCenter.y = addCenter.y;
+		self.amountLabel.center = amountCenter;
 	}
 }
 
