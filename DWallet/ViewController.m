@@ -188,27 +188,36 @@
 -(void) showQRCode {
 	UIImage *qr = [UIImage mdQRCodeForString:self.myAddressLabel.text size:640.0f];
 	
-	QRView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 320.0f)];
-	QRView.center = self.view.center;
-	
-	CGPoint newCenter = QRView.center;
-	newCenter.y -= 60.0f;
-	QRView.center = newCenter;
-	
-	QRView.image = qr;
-	QRView.backgroundColor = [UIColor whiteColor];
-	
-	UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(qrTapped:)];
-	[QRView setUserInteractionEnabled:YES];
-	[QRView addGestureRecognizer:gesture];
-	
-	[self.view addSubview:QRView];
+	if (!QRView) {
+        QRView = [[UIImageView alloc] initWithFrame:CGRectMake(272.0f, 6.5f, 40.0f, 40.0f)];
+        /*QRView.center = self.view.center;
+        
+        CGPoint newCenter = QRView.center;
+        newCenter.y -= 60.0f;
+        QRView.center = newCenter;*/
+        
+        QRView.image = qr;
+        QRView.backgroundColor = [UIColor whiteColor];
+        
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(qrTapped:)];
+        [QRView setUserInteractionEnabled:YES];
+        [QRView addGestureRecognizer:gesture];
+        
+        [self.view addSubview:QRView];
+    }
 	
 }
 
 -(void) qrTapped:(id)sender {
-	[QRView removeFromSuperview];
-	QRView = nil;
+    CGRect newFrame;
+    if (QRView.frame.size.width < 320) // enlarge
+        newFrame = CGRectMake(0.0f, 90.0f, 320.0f, 320.0f);
+    else
+        newFrame = CGRectMake(272.0f, 6.5f, 40.0f, 40.0f);
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        QRView.frame = newFrame;
+    }];
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -335,6 +344,8 @@
 		addresses = [addresses reversedArray];
 		
 		self.myAddressLabel.text = [[addresses objectAtIndex:0] objectForKey:@"address"];
+        
+        [self showQRCode];
 	}
 	
 	// get transactions

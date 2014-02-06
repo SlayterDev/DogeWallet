@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02062F6218A33E8200C67D0D /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02062F6118A33E8200C67D0D /* TransactionViewController.m */; };
 		021944AD18A294CD0044EC29 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 0219449D18A294CD0044EC29 /* bitstream.c */; };
 		021944AE18A294CD0044EC29 /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 0219449F18A294CD0044EC29 /* mask.c */; };
 		021944AF18A294CD0044EC29 /* qrencode.c in Sources */ = {isa = PBXBuildFile; fileRef = 021944A118A294CD0044EC29 /* qrencode.c */; };
@@ -65,6 +66,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02062F6018A33E8200C67D0D /* TransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionViewController.h; sourceTree = "<group>"; };
+		02062F6118A33E8200C67D0D /* TransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionViewController.m; sourceTree = "<group>"; };
 		0219449D18A294CD0044EC29 /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
 		0219449E18A294CD0044EC29 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
 		0219449F18A294CD0044EC29 /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
@@ -184,6 +187,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02062F5F18A33ADA00C67D0D /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				02EE7BB918A2045F00174DAF /* qrcode.png */,
+				02A9233118A3043B009D02E6 /* info-25.png */,
+				02A9233218A3043B009D02E6 /* info-32.png */,
+				02A9233818A30F9A009D02E6 /* dogecoin.png */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		0219449C18A294CD0044EC29 /* libqrencode */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +240,8 @@
 				021944B718A2C3BA0044EC29 /* ServerAddView.m */,
 				02A9233518A304F7009D02E6 /* InfoViewController.h */,
 				02A9233618A304F7009D02E6 /* InfoViewController.m */,
+				02062F6018A33E8200C67D0D /* TransactionViewController.h */,
+				02062F6118A33E8200C67D0D /* TransactionViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -272,10 +288,7 @@
 		02EE7B4F18A1F10E00174DAF /* DWallet */ = {
 			isa = PBXGroup;
 			children = (
-				02EE7BB918A2045F00174DAF /* qrcode.png */,
-				02A9233118A3043B009D02E6 /* info-25.png */,
-				02A9233218A3043B009D02E6 /* info-32.png */,
-				02A9233818A30F9A009D02E6 /* dogecoin.png */,
+				02062F5F18A33ADA00C67D0D /* Assets */,
 				021944B518A294D20044EC29 /* QRGen */,
 				02EE7B8918A1F75800174DAF /* ZBarSDK */,
 				02EE7B5818A1F10E00174DAF /* AppDelegate.h */,
@@ -496,6 +509,7 @@
 				021944B818A2C3BA0044EC29 /* ServerAddView.m in Sources */,
 				021944B118A294CD0044EC29 /* qrspec.c in Sources */,
 				021944AD18A294CD0044EC29 /* bitstream.c in Sources */,
+				02062F6218A33E8200C67D0D /* TransactionViewController.m in Sources */,
 				021944B218A294CD0044EC29 /* rscode.c in Sources */,
 				02EE7B6018A1F10E00174DAF /* ViewController.m in Sources */,
 				021944AE18A294CD0044EC29 /* mask.c in Sources */,
