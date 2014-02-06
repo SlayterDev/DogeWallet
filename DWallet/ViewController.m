@@ -219,7 +219,7 @@
     else
         newFrame = CGRectMake(272.0f, 6.5f, 40.0f, 40.0f);
     
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.4 animations:^{
         QRView.frame = newFrame;
     }];
 }

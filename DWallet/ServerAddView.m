@@ -41,11 +41,16 @@
 	self.navigationItem.title = @"Server Details";
 	self.navigationController.navigationBar.translucent = NO;
 	
+    UIBarButtonItem *helpBtn = [[UIBarButtonItem alloc] initWithTitle:@"Help" style:UIBarButtonItemStyleBordered target:self action:@selector(helpTapped:)];
+    
 	if (!server) { // first time entering
 		UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneTapped:)];
 		self.navigationItem.rightBarButtonItem = doneBtn;
-	}
-	
+        self.navigationItem.leftBarButtonItem = helpBtn;
+	} else {
+        self.navigationItem.rightBarButtonItem = helpBtn;
+    }
+    
 	accessoryView = [self createAccessoryView];
 	fields = [[NSMutableArray alloc] init];
 }
@@ -57,6 +62,10 @@
 
 -(NSString *) getServerPath {
 	return [NSString stringWithFormat:@"%@/server.plist", [[BSFileHelper sharedHelper] getDocumentsDirectory]];
+}
+
+-(void) helpTapped:(id)sender {
+    [[[UIAlertView alloc] initWithTitle:@"Help" message:@"Host: Address of the server your wallet is running on.\nUser: Your username for the server.\nPass: Your password for the server.\nPath: Path to Dogecoin wallet software (dogecoind). For example \"~/dogecoin/src/\". Do not include the executable name in the path.\nEncrypted: Turn this on if your wallet is encrypted with a passphrase." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
 }
 
 - (void)didReceiveMemoryWarning
@@ -139,6 +148,9 @@
         encryptedSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
         cell.accessoryView = encryptedSwitch;
         [encryptedSwitch setOn:NO animated:NO];
+        
+        if (server)
+            [encryptedSwitch setOn:[[server objectForKey:@"encrypted"] boolValue] animated:NO];
     }
 	
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
