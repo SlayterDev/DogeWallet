@@ -61,7 +61,7 @@
     self.navigationItem.title = @"My Wallet";
 	self.navigationController.navigationBar.translucent = NO;
     
-    UIBarButtonItem *sendBtn = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStyleBordered target:self action:@selector(showSendView:)];
+    UIBarButtonItem *sendBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"enter-25.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showSendView:)];
     self.navigationItem.rightBarButtonItem = sendBtn;
 	
 	UIBarButtonItem *infoBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"info-25.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(infoTapped:)];

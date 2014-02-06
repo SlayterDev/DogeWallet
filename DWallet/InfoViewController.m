@@ -97,7 +97,7 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {
-		
+		[[[UIAlertView alloc] initWithTitle:@"Help" message:@"The only tip I can offer that doesn't feel obvious is that tapping the address in the main view will copy it to your clipboard." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
 	} else if (indexPath.section == 1) {
 		if (indexPath.row == 0) {
 			ServerAddView *controller = [[ServerAddView alloc] initWithStyle:UITableViewStyleGrouped];
@@ -105,6 +105,8 @@
 			[self.navigationController pushViewController:controller animated:YES];
 		}
 	}
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(void) serverViewDidClose:(ServerAddView *)serverAddController {
