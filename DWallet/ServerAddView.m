@@ -89,7 +89,7 @@
 }
 
 -(NSString *) tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	return @"Enter the path to dogecoind. (e.g. ~/dogecoin/src/)\nDo not include the executable in your path";
+	return @"Enter the path to dogecoind. \n(e.g. ~/dogecoin/src/)\nDo not include the executable in your path";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

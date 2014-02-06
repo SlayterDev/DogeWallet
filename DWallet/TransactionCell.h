@@ -13,5 +13,6 @@
 @property (nonatomic, strong) UILabel *addressLabel;
 @property (nonatomic, strong) UILabel *amountLabel;
 @property (nonatomic, strong) UILabel *unconfirmedLabel;
+@property (nonatomic, strong) UILabel *dateLabel;
 
 @end

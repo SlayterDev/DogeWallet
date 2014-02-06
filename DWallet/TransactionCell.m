@@ -15,7 +15,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-		self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, 5.0f, 160, 39)];
+		self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, 2.5f, 160, 39)];
 		self.addressLabel.numberOfLines = 0;
 		[self.contentView addSubview:self.addressLabel];
 		
@@ -31,6 +31,10 @@
 		self.unconfirmedLabel.textAlignment = NSTextAlignmentRight;
 		self.unconfirmedLabel.font = [UIFont boldSystemFontOfSize:15.0f];
 		
+		self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, 25.0f, 145, 25)];
+		[self.contentView addSubview:self.dateLabel];
+		self.dateLabel.font = [UIFont boldSystemFontOfSize:13.0f];
+		
     }
     return self;
 }
@@ -40,12 +44,16 @@
 	
 	CGPoint addCenter = self.addressLabel.center;
 	addCenter.y = self.bounds.size.height/2;
-	self.addressLabel.center = addCenter;
+	//self.addressLabel.center = addCenter;
 	
 	if (![self.unconfirmedLabel.text isEqualToString:@"unconfirmed"]) {
 		CGPoint amountCenter = self.amountLabel.center;
 		amountCenter.y = addCenter.y;
 		self.amountLabel.center = amountCenter;
+	} else {
+		CGRect newFrame = self.amountLabel.frame;
+		newFrame.origin.y = 2.5f;
+		[self.amountLabel setFrame:newFrame];
 	}
 }
 

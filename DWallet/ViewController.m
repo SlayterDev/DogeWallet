@@ -171,7 +171,7 @@
 	
 	// Doge image
 	UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dogecoin.png"]];
-	[iv setFrame:CGRectMake(0, 1, 45, 45)];
+	[iv setFrame:CGRectMake(3, 3, 45, 45)];
 	[self.view addSubview:iv];
 }
 
@@ -252,7 +252,7 @@
 	if (conf < 3)
 		return 64.0f;
 	else
-		return 44.0f;
+		return 54.0f;
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -284,6 +284,15 @@
 		cell.amountLabel.textColor = [UIColor colorWithRed:0.3013f green:0.5109f blue:0.1878f alpha:1.0f];
 	else
 		cell.amountLabel.textColor = [UIColor redColor];
+	
+	// DATE LABEL
+	double epochTime = [[[transactions objectAtIndex:indexPath.row] objectForKey:@"timereceived"] doubleValue];
+	NSTimeInterval seconds = epochTime;
+	
+	// (Step 1) Create NSDate object
+	NSDate *epochNSDate = [[NSDate alloc] initWithTimeIntervalSince1970:seconds];
+	
+	cell.dateLabel.text = dateToStringInterval(epochNSDate);
     
     return cell;
 }
@@ -369,6 +378,51 @@
 	
 	[self.ssh disconnect]; // don't forget to do this when done
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
+
+#pragma mark - NSDate methods
+
+NSString *dateToStringInterval(NSDate *pastDate)
+//! Method to return a string "xxx days ago" based on the difference between pastDate and the current date and time.
+{
+	// Get the system calendar
+	NSCalendar *sysCalendar = [NSCalendar currentCalendar];
+	
+	// Create the current date
+    NSDate *currentDate = [[NSDate alloc] init];
+	
+	// Get conversion to months, days, hours, minutes
+    unsigned int unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit;
+	
+    NSDateComponents *breakdownInfo = [sysCalendar components:unitFlags fromDate:currentDate  toDate:pastDate  options:0];
+	
+    NSString *intervalString;
+    if ([breakdownInfo month]) {
+		if (-[breakdownInfo month] > 1)
+			intervalString = [NSString stringWithFormat:@"%d months ago", -[breakdownInfo month]];
+		else
+			intervalString = @"1 month ago";
+	}
+    else if ([breakdownInfo day]) {
+		if (-[breakdownInfo day] > 1)
+			intervalString = [NSString stringWithFormat:@"%d days ago", -[breakdownInfo day]];
+		else
+			intervalString = @"1 day ago";
+	}
+    else if ([breakdownInfo hour]) {
+		if (-[breakdownInfo hour] > 1)
+			intervalString = [NSString stringWithFormat:@"%d hours ago", -[breakdownInfo hour]];
+		else
+			intervalString = @"1 hour ago";
+	}
+    else {
+		if (-[breakdownInfo minute] > 1)
+			intervalString = [NSString stringWithFormat:@"%d minutes ago", -[breakdownInfo minute]];
+		else
+			intervalString = @"1 minute ago";
+	}
+	
+    return intervalString;
 }
 
 @end

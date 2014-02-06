@@ -53,7 +53,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 6;
+    return 7;
 }
 
 -(NSString *) tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
@@ -88,14 +88,19 @@
         float fee = [[self.transaction objectForKey:@"fee"] floatValue];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f", fee];
     } else if (indexPath.row == 3) {
+		cell.textLabel.text = @"Confirmations";
+        
+        int conf = [[self.transaction objectForKey:@"confirmations"] intValue];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", conf];
+	} else if (indexPath.row == 4) {
         cell.textLabel.text = @"Blockhash";
         
         cell.detailTextLabel.text = [self.transaction objectForKey:@"blockhash"];
-    } else if (indexPath.row == 4) {
+    } else if (indexPath.row == 5) {
         cell.textLabel.text = @"txid";
         
         cell.detailTextLabel.text = [self.transaction objectForKey:@"txid"];
-    } else if (indexPath.row == 5) {
+    } else if (indexPath.row == 6) {
         cell.textLabel.text = @"Time";
         
         double epochTime = [[self.transaction objectForKey:@"timereceived"] doubleValue];
