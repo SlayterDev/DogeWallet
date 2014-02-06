@@ -32,6 +32,8 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.navigationItem.title = @"Transaction Details";
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,26 +46,85 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 6;
+}
+
+-(NSString *) tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return @"Tap any cell to copy its value";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Configure the cell...
+    if (cell == nil)
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
+    
+    cell.textLabel.textAlignment = NSTextAlignmentLeft;
+    
+    if (indexPath.row == 0) {
+        if ([[self.transaction objectForKey:@"category"] isEqualToString:@"send"])
+            cell.textLabel.text = @"Sent To";
+        else
+            cell.textLabel.text = @"Recieved From";
+        
+        cell.detailTextLabel.text = [self.transaction objectForKey:@"address"];
+    } else if (indexPath.row == 1) {
+        cell.textLabel.text = @"Amount";
+        
+        float amount = [[self.transaction objectForKey:@"amount"] floatValue];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f", amount];
+    } else if (indexPath.row == 2) {
+        cell.textLabel.text = @"Fee";
+        
+        float fee = [[self.transaction objectForKey:@"fee"] floatValue];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f", fee];
+    } else if (indexPath.row == 3) {
+        cell.textLabel.text = @"Blockhash";
+        
+        cell.detailTextLabel.text = [self.transaction objectForKey:@"blockhash"];
+    } else if (indexPath.row == 4) {
+        cell.textLabel.text = @"txid";
+        
+        cell.detailTextLabel.text = [self.transaction objectForKey:@"txid"];
+    } else if (indexPath.row == 5) {
+        cell.textLabel.text = @"Time Recieved";
+        
+        double epochTime = [[self.transaction objectForKey:@"timereceived"] doubleValue];
+        NSTimeInterval seconds = epochTime;
+        
+        // (Step 1) Create NSDate object
+        NSDate *epochNSDate = [[NSDate alloc] initWithTimeIntervalSince1970:seconds];
+        NSLog (@"Epoch time %lf equates to UTC %@", epochTime, epochNSDate);
+        
+        // (Step 2) Use NSDateFormatter to display epochNSDate in local time zone
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM-dd-yyyy hh:mm:ss zzz"];
+        NSLog (@"Epoch time %lf equates to %@", epochTime, [dateFormatter stringFromDate:epochNSDate]);
+        
+        cell.detailTextLabel.text = [dateFormatter stringFromDate:epochNSDate];
+    }
     
     return cell;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    
+    UIPasteboard *pb = [UIPasteboard generalPasteboard];
+    pb.string = cell.detailTextLabel.text;
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [[[UIAlertView alloc] initWithTitle:@"Copied!" message:[NSString stringWithFormat:@"Copied %@ to clipboard", cell.textLabel.text] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
 }
 
 /*

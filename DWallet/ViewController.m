@@ -90,6 +90,8 @@
 }
 
 -(void) showServerView {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
 	ServerAddView *controller = [[ServerAddView alloc] initWithStyle:UITableViewStyleGrouped];
 	controller.delegate = self;
 	
@@ -292,6 +294,15 @@
 		cell.amountLabel.textColor = [UIColor redColor];
     
     return cell;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *transaction = [transactions objectAtIndex:indexPath.row];
+    
+    TransactionViewController *controller = [[TransactionViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    controller.transaction = transaction;
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - Data Fetching

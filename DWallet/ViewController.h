@@ -12,6 +12,7 @@
 #import "SendDogeController.h"
 #import "ServerAddView.h"
 #import "InfoViewController.h"
+#import "TransactionViewController.h"
 #import "TransactionCell.h"
 #import "UIImage+MDQRCode.h"
 

@@ -10,4 +10,6 @@
 
 @interface TransactionViewController : UITableViewController
 
+@property (nonatomic, strong) NSDictionary *transaction;
+
 @end
