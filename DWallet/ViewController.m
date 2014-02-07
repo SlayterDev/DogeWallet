@@ -156,7 +156,7 @@
 	self.myAddressLabel.textAlignment = NSTextAlignmentCenter;
 	self.myAddressLabel.font = [UIFont systemFontOfSize:14.0f];
 	
-	UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(copyAddress)];
+	UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareAddress)];
 	[self.myAddressLabel setUserInteractionEnabled:YES];
 	[self.myAddressLabel addGestureRecognizer:gesture];
 	
@@ -227,7 +227,7 @@
 }
 
 -(void) addressTapped:(id)sender {
-	addressAlert = [[UIAlertView alloc] initWithTitle:@"My Address" message:@"Would you like to copy your address, or show a QR code?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Copy Address", @"Show QR Code", nil];
+	addressAlert = [[UIAlertView alloc] initWithTitle:@"My Address" message:@"Would you like to copy your address, or show a QR code?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Copy Address", @"Share Address", nil];
 	[addressAlert show];
 }
 
@@ -267,12 +267,19 @@
     }];
 }
 
+-(void) shareAddress {
+	NSArray *shareItems = @[self.myAddressLabel.text];
+	
+	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+	[self presentViewController:controller animated:YES completion:nil];
+}
+
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (alertView == addressAlert) {
 		if (buttonIndex == alertView.firstOtherButtonIndex) {
 			[self copyAddress];
 		} else if (buttonIndex == alertView.firstOtherButtonIndex + 1) {
-			[self showQRCode];
+			[self shareAddress];
 		}
 	}
 }
