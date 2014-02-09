@@ -85,7 +85,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 5;
+    return 6;
 }
 
 -(NSString *) tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
@@ -101,6 +101,9 @@
 		cell = [[UITableViewCell alloc] init];
 	
 	if (indexPath.row == 0) {
+		cell.textLabel.text = @"View Tutorial";
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	} else if (indexPath.row == 1) {
 		cell.textLabel.text = @"Host";
 		
 		hostField = [self createTextField];
@@ -110,7 +113,7 @@
 			hostField.text = [server objectForKey:@"host"];
 		
 		[fields insertObject:hostField atIndex:0];
-	} else if (indexPath.row == 1) {
+	} else if (indexPath.row == 2) {
 		cell.textLabel.text = @"Username";
 		
 		userField = [self createTextField];
@@ -120,7 +123,7 @@
 			userField.text = [server objectForKey:@"user"];
 		
 		[fields insertObject:userField atIndex:1];
-	} else if (indexPath.row == 2) {
+	} else if (indexPath.row == 3) {
 		cell.textLabel.text = @"Password";
 		
 		passField = [self createTextField];
@@ -131,7 +134,7 @@
 			passField.text = [server objectForKey:@"pass"];
 		
 		[fields insertObject:passField atIndex:2];
-	} else if (indexPath.row == 3) {
+	} else if (indexPath.row == 4) {
 		cell.textLabel.text = @"Path";
 		
 		pathField = [self createTextField];
@@ -142,7 +145,7 @@
 			pathField.text = [server objectForKey:@"path"];
 		
 		[fields insertObject:pathField atIndex:3];
-	} else if (indexPath.row == 4) {
+	} else if (indexPath.row == 5) {
         cell.textLabel.text = @"Wallet is Encrypted";
         
         encryptedSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
@@ -153,7 +156,8 @@
             [encryptedSwitch setOn:[[server objectForKey:@"encrypted"] boolValue] animated:NO];
     }
 	
-	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	if (indexPath.row != 0)
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -171,6 +175,12 @@
 }
 
 -(void) doneTapped:(id)sender {
+	if ([hostField.text isEqualToString:@""] || [userField.text isEqualToString:@""] || [passField.text isEqualToString:@""] || [pathField.text isEqualToString:@""]) {
+		[[[UIAlertView alloc] initWithTitle:@"Error" message:@"Please fill out all fields" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+		return;
+	}
+	
+	
 	NSDictionary *serverInfo = @{@"host": hostField.text, @"user": userField.text, @"pass": passField.text, @"path": pathField.text, @"encrypted": [NSNumber numberWithBool:encryptedSwitch.on]};
 	
 	NSString *path = [NSString stringWithFormat:@"%@/server.plist", [[BSFileHelper sharedHelper] getDocumentsDirectory]];
@@ -229,6 +239,13 @@
 		if ([field isFirstResponder]) {
 			[field resignFirstResponder];
 		}
+	}
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.row == 0) {
+		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://slayterdevelopment.com/blog/2014/02/08/how-to-set-up-your-doge-wallet-for-ios-using-a-raspberry-pi/"]];
 	}
 }
 

@@ -52,6 +52,7 @@
     [super viewDidLoad];
     
 	NSString *path = [self getServerPath];
+	
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NO]) {
 		[self showServerView];
 	} else {

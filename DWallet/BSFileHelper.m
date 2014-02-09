@@ -21,10 +21,22 @@ static BSFileHelper *_sharedHelper;
 }
 
 -(NSString *) getDocumentsDirectory {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains
-	(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsDirectory = [paths objectAtIndex:0];
-	return documentsDirectory;
+	
+    NSString *documentPath = @"/var/mobile/Library/DWallet";
+	
+    if (![[NSFileManager defaultManager] fileExistsAtPath:documentPath])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:documentPath
+								  withIntermediateDirectories:NO
+												   attributes:nil
+														error:NULL];
+    }
+	
+    return documentPath;
+		
+    //NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //return [documentPaths objectAtIndex:0];
+	
 }
 
 -(NSURL *) documentsDirectoryURL {

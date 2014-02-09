@@ -13,6 +13,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+	//mkdir("/var/mobile/Library/DWallet/Documents", 0755);
+	
+	//NSError *error;
+	//[[NSFileManager defaultManager] createDirectoryAtPath:@"/var/mobile/Library/DWallet/Documents" withIntermediateDirectories:YES attributes:nil error:&error];
+	
+	//NSLog(@"%@", error.localizedDescription);
+	
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.window.rootViewController];
 	self.window.rootViewController = nav;
     
