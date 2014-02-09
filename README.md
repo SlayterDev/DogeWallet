@@ -15,4 +15,8 @@ This wallet client may not be for the average user as it requires the use of Dog
 
 If you would like to contribute and help to make the wallet better, feel free to fork the code and submit changes.
 
+**Donate**
+Doge: D63upYZh7TAiHgwLTTARw8cfzeSTNKTAdr
+BTC: 1Q7zu8p9bdK66j4FuxmpkphZQRmFCkSTEF
+
 <a href="http://imgur.com/8oMMm1q"><img src="http://i.imgur.com/8oMMm1q.png" title="Hosted by imgur.com" style="width: 50px"/></a>
