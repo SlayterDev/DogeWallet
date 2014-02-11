@@ -14,6 +14,7 @@
 #import "InfoViewController.h"
 #import "TransactionViewController.h"
 #import "TransactionCell.h"
+#import "DogePIHelper.h"
 #import "UIImage+MDQRCode.h"
 
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, ServerAddDelegate> {

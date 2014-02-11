@@ -21,6 +21,7 @@
 		021944B418A294CD0044EC29 /* UIImage+MDQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 021944AC18A294CD0044EC29 /* UIImage+MDQRCode.m */; };
 		021944B818A2C3BA0044EC29 /* ServerAddView.m in Sources */ = {isa = PBXBuildFile; fileRef = 021944B718A2C3BA0044EC29 /* ServerAddView.m */; };
 		021944BB18A2C8390044EC29 /* BSFileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 021944BA18A2C8390044EC29 /* BSFileHelper.m */; };
+		021D226518A99C52007D0F2F /* DogePIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 021D226418A99C52007D0F2F /* DogePIHelper.m */; };
 		02A9233018A2F953009D02E6 /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A9232F18A2F953009D02E6 /* TransactionCell.m */; };
 		02A9233318A3043B009D02E6 /* info-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A9233118A3043B009D02E6 /* info-25.png */; };
 		02A9233418A3043B009D02E6 /* info-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A9233218A3043B009D02E6 /* info-32.png */; };
@@ -97,6 +98,8 @@
 		021944B718A2C3BA0044EC29 /* ServerAddView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAddView.m; sourceTree = "<group>"; };
 		021944B918A2C8390044EC29 /* BSFileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSFileHelper.h; sourceTree = "<group>"; };
 		021944BA18A2C8390044EC29 /* BSFileHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSFileHelper.m; sourceTree = "<group>"; };
+		021D226318A99C52007D0F2F /* DogePIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DogePIHelper.h; sourceTree = "<group>"; };
+		021D226418A99C52007D0F2F /* DogePIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DogePIHelper.m; sourceTree = "<group>"; };
 		02A9232E18A2F953009D02E6 /* TransactionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCell.h; sourceTree = "<group>"; };
 		02A9232F18A2F953009D02E6 /* TransactionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCell.m; sourceTree = "<group>"; };
 		02A9233118A3043B009D02E6 /* info-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-25.png"; sourceTree = "<group>"; };
@@ -313,6 +316,8 @@
 				02EE7B5918A1F10E00174DAF /* AppDelegate.m */,
 				021944B918A2C8390044EC29 /* BSFileHelper.h */,
 				021944BA18A2C8390044EC29 /* BSFileHelper.m */,
+				021D226318A99C52007D0F2F /* DogePIHelper.h */,
+				021D226418A99C52007D0F2F /* DogePIHelper.m */,
 				02A9232E18A2F953009D02E6 /* TransactionCell.h */,
 				02A9232F18A2F953009D02E6 /* TransactionCell.m */,
 				02A9232D18A2F924009D02E6 /* ViewControllers */,
@@ -536,6 +541,7 @@
 				02062F6218A33E8200C67D0D /* TransactionViewController.m in Sources */,
 				021944B218A294CD0044EC29 /* rscode.c in Sources */,
 				02EE7B6018A1F10E00174DAF /* ViewController.m in Sources */,
+				021D226518A99C52007D0F2F /* DogePIHelper.m in Sources */,
 				021944AE18A294CD0044EC29 /* mask.c in Sources */,
 				021944AF18A294CD0044EC29 /* qrencode.c in Sources */,
 				02A9233718A304F7009D02E6 /* InfoViewController.m in Sources */,

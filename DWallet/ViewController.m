@@ -79,7 +79,8 @@
 -(void) viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	
-	[self refreshWallet];
+	//[self refreshWallet];
+    [[DogePIHelper sharedHelper] fetchAddress];
 }
 
 -(void) refreshWallet {
